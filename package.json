@@ -1,0 +1,25 @@
+{
+    "name": "powerpc-syntax",
+    "displayName": "PowerPC Syntax",
+    "description": "",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.52.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "asm",
+            "aliases": ["PowerPC", "asm"],
+            "extensions": [".asm",".s"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "asm",
+            "scopeName": "source.asm",
+            "path": "./syntaxes/asm.tmLanguage.json"
+        }]
+    }
+}

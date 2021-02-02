@@ -1,0 +1,228 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "PowerPC",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#misc"
+		},
+		{
+			"include": "#meta"
+		}
+	],
+	"repository": {
+		"kseywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.asm",
+					"match": "\\b(if|while|for|return)\\b"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"match": "(?i)(?x)(\\s*)\\b(?:se_illegal|se_isync|se_sc|se_blr|se_blrl|se_bctr|se_bctrl|se_rfi|se_rfci|se_rfdi|se_rfmci|se_not|se_neg|se_mflr|se_mtlr|se_mfctr|se_mtctr|se_extzb|se_extsb|se_extzh|se_extsh|se_mr|se_mtar|se_mfar|se_add|se_mullw|se_sub|se_subf|se_cmp|se_cmpl|se_cmph|se_cmphl|e_cmpi|e_cmpli|e_addi|e_subi|e_addi.|e_addic|e_subic|e_addic.|e_subic.|e_mulli|e_subfic|e_subfic.|e_andi|e_andi.|e_nop|e_ori|e_ori.|e_xori|e_xori.|e_lbzu|e_lhau|e_lhzu|e_lmw|e_lwzu|e_stbu|e_sthu|e_stwu|e_stmw|e_add16i|e_la|e_sub16i|se_addi|se_cmpli|se_subi|se_subi.|se_cmpi|se_bmaski|se_andi|e_lbz|e_stb|e_lha|se_srw|se_sraw|se_slw|se_nop|se_or|se_andc|se_and|se_and.|se_li|e_lwz|e_stw|e_lhz|e_sth|se_bclri|se_bgeni|se_bseti|se_btsti|se_srwi|se_srawi|se_slwi|e_lis|e_and2is.|e_or2is|e_and2i.|e_or2i|e_cmphl16i|e_cmph16i|e_cmpl16i|e_cmplwi|e_mull2i|e_cmp16i|e_cmpwi|e_sub2is|e_add2is|e_sub2i.|e_add2i.|e_li|e_rlwimi|e_rlwinm|e_b|e_bl|e_bdnz|e_bdnzl|e_bdz|e_bdzl|e_bge|e_bgel|e_bnl|e_bnll|e_blt|e_bltl|e_bgt|e_bgtl|e_ble|e_blel|e_bng|e_bngl|e_bne|e_bnel|e_beq|e_beql|e_bso|e_bsol|e_bun|e_bunl|e_bns|e_bnsl|e_bnu|e_bnul|e_bc|e_bcl|e_bf|e_bfl|e_bt|e_btl|e_cmph|e_cmphl|e_crandc|e_crnand|e_crnot|e_crnor|e_crclr|e_crxor|e_mcrf|e_slwi|e_slwi.|e_crand|e_rlw|e_rlw.|e_crset|e_creqv|e_rlwi|e_rlwi.|e_crorc|e_crmove|e_cror|mtmas1|e_srwi|e_srwi.|se_lbz|se_stb|se_lhz|se_sth|se_lwz|se_stw|se_bge|se_bnl|se_ble|se_bng|se_bne|se_bns|se_bnu|se_bf|se_blt|se_bgt|se_beq|se_bso|se_bun|se_bt|se_bc|se_b|se_bl)\\b",
+					"name": "keyword.other.vle.ppc.assembly"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"match": "(?i)(?x)(\\s*)%?\\b(?:r(?:[0-9]|(?:[1-3][0-9]))d?|e?vr?(?:[0-9]|(?:[1-3][0-9]))d?|fr(?:[0-9]|(?:[1-3][0-9]))d?|vs(?:[0-9]|(?:[1-6][0-9]))d?)\\b",
+					"name": "variable.language.registers.ppc.assembly"
+				},
+				{
+					"match": "(?i)(?x)(\\s*)%?\\b(?:cr[0-7])\\b",
+					"name": "constant.character.escape.ppc.assembly"
+				},
+				{
+					"match": "(?i)(?x)(\\s*)\\b(?:attn|tdlgti|tdllti|tdeqi|tdlgei|tdlnli|tdllei|tdlngi|tdgti|tdgei|tdnli|tdlti|tdlei|tdngi|tdnei|tdui|tdi|twlgti|tlgti|twllti|tllti|tweqi|teqi|twlgei|tlgei|twlnli|tlnli|twllei|tllei|twlngi|tlngi|twgti|tgti|twgei|tgei|twnli|tnli|twlti|tlti|twlei|tlei|twngi|tngi|twnei|tnei|twui|tui|twi|ti|ps_cmpu0|vaddubm|vmul10cuq|vmaxub|vrlb|vcmpequb|vcmpneb|vmuloub|vaddfp|psq_lx|vmrghb|psq_stx|vpkuhum|mulhhwu|mulhhwu\\.|ps_sum0|ps_sum0\\.|ps_sum1|ps_sum1\\.|ps_muls0|machhwu|ps_muls0\\.|machhwu\\.|ps_muls1|ps_muls1\\.|ps_madds0|ps_madds0\\.|ps_madds1|ps_madds1\\.|vmhaddshs|vmhraddshs|vmladduhm|vmsumudm|ps_div|vmsumubm|ps_div\\.|vmsummbm|vmsumuhm|vmsumuhs|ps_sub|vmsumshm|ps_sub\\.|vmsumshs|ps_add|vsel|ps_add\\.|vperm|vsldoi|vpermxor|ps_sel|vmaddfp|ps_sel\\.|vnmsubfp|ps_res|maddhd|ps_res\\.|maddhdu|ps_mul|ps_mul\\.|maddld|ps_rsqrte|ps_rsqrte\\.|ps_msub|ps_msub\\.|ps_madd|ps_madd\\.|vpermr|ps_nmsub|vaddeuqm|ps_nmsub\\.|vaddecuq|ps_nmadd|vsubeuqm|ps_nmadd\\.|vsubecuq|ps_cmpo0|vadduhm|vmul10ecuq|vmaxuh|vrlh|vcmpequh|vcmpneh|vmulouh|vsubfp|psq_lux|vmrghh|psq_stux|vpkuwum|ps_neg|mulhhw|ps_neg\\.|mulhhw\\.|machhw|machhw\\.|nmachhw|nmachhw\\.|ps_cmpu1|vadduwm|vmaxuw|vrlw|vrlwmi|vcmpequw|vcmpnew|vmulouw|vmuluwm|vmrghw|vpkuhus|ps_mr|ps_mr\\.|machhwsu|machhwsu\\.|ps_cmpo1|vaddudm|vmaxud|vrld|vrldmi|vcmpeqfp|vcmpequd|vpkuwus|machhws|machhws\\.|nmachhws|nmachhws\\.|vadduqm|vmaxsb|vslb|vcmpnezb|vmulosb|vrefp|vmrglb|vpkshus|ps_nabs|mulchwu|ps_nabs\\.|mulchwu\\.|macchwu|macchwu\\.|vaddcuq|vmaxsh|vslh|vcmpnezh|vmulosh|vrsqrtefp|vmrglh|vpkswus|mulchw|mulchw\\.|macchw|macchw\\.|nmacchw|nmacchw\\.|vaddcuw|vmaxsw|vslw|vrlwnm|vcmpnezw|vmulosw|vexptefp|vmrglw|vpkshss|macchwsu|macchwsu\\.|vmaxsd|vsl|vrldnm|vcmpgefp|vlogefp|vpkswss|macchws|macchws\\.|nmacchws|nmacchws\\.|evaddw|vaddubs|vmul10uq|evaddiw|vminub|evsubfw|evsubw|vsrb|evsubifw|evsubiw|vcmpgtub|evabs|vmuleub|evneg|evextsb|vrfin|evextsh|evrndw|vspltb|vextractub|evcntlzw|evcntlsw|vupkhsb|brinc|ps_abs|ps_abs\\.|evand|evandc|evxor|evmr|evor|evnor|evnot|get|eveqv|evorc|evnand|evsrwu|evsrws|evsrwiu|evsrwis|evslw|evslwi|evrlw|evsplati|evrlwi|evsplatfi|evmergehi|evmergelo|evmergehilo|evmergelohi|evcmpgtu|evcmpgts|evcmpltu|evcmplts|evcmpeq|cget|vadduhs|vmul10euq|vminuh|vsrh|vcmpgtuh|vmuleuh|vrfiz|vsplth|vextractuh|vupkhsh|nget|evsel|ncget|evfsadd|vadduws|evfssub|vminuw|evfsabs|vsrw|evfsnabs|evfsneg|vcmpgtuw|vmuleuw|evfsmul|evfsdiv|vrfip|evfscmpgt|vspltw|vextractuw|evfscmplt|evfscmpeq|vupklsb|evfscfui|evfscfsi|evfscfuf|evfscfsf|evfsctui|evfsctsi|evfsctuf|evfsctsf|evfsctuiz|put|evfsctsiz|evfststgt|evfststlt|evfststeq|cput|efsadd|efssub|vminud|efsabs|vsr|efsnabs|efsneg|vcmpgtfp|vcmpgtud|efsmul|efsdiv|vrfim|efscmpgt|vextractd|efscmplt|efscmpeq|vupklsh|efscfd|efscfui|efscfsi|efscfuf|efscfsf|efsctui|efsctsi|efsctuf|efsctsf|efsctuiz|nput|efsctsiz|efststgt|efststlt|efststeq|efdadd|efdsub|efdcfuid|efdcfsid|efdabs|efdnabs|efdneg|efdmul|efddiv|efdctuidz|efdctsidz|efdcmpgt|efdcmplt|efdcmpeq|efdcfs|efdcfui|efdcfsi|efdcfuf|efdcfsf|efdctui|efdctsi|efdctuf|efdctsf|efdctuiz|ncput|efdctsiz|efdtstgt|efdtstlt|efdtsteq|evlddx|vaddsbs|evldd|evldwx|vminsb|evldw|evldhx|vsrab|evldh|vcmpgtsb|evlhhesplatx|vmulesb|evlhhesplat|vcfux|vcuxwfp|evlhhousplatx|vspltisb|vinsertb|evlhhousplat|evlhhossplatx|vpkpx|evlhhossplat|mullhwu|evlwhex|mullhwu\\.|evlwhe|evlwhoux|evlwhou|evlwhosx|evlwhos|maclhwu|evlwwsplatx|maclhwu\\.|evlwwsplat|evlwhsplatx|evlwhsplat|evstddx|evstdd|evstdwx|evstdw|evstdhx|evstdh|evstwhex|evstwhe|evstwhox|evstwho|evstwwex|evstwwe|evstwwox|evstwwo|vaddshs|bcdcpsgn\\.|vminsh|vsrah|vcmpgtsh|vmulesh|vcfsx|vcsxwfp|vspltish|vinserth|vupkhpx|mullhw|mullhw\\.|maclhw|maclhw\\.|nmaclhw|nmaclhw\\.|vaddsws|vminsw|vsraw|vcmpgtsw|vmulesw|vctuxs|vcfpuxws|vspltisw|vinsertw|maclhwsu|maclhwsu\\.|vminsd|vsrad|vcmpbfp|vcmpgtsd|vctsxs|vcfpsxws|vinsertd|vupklpx|maclhws|maclhws\\.|nmaclhws|nmaclhws\\.|vsububm|bcdadd\\.|vavgub|vabsdub|evmhessf|vand|vcmpequb\\.|vcmpneb\\.|udi0fcm\\.|udi0fcm|evmhossf|vpmsumb|evmheumi|evmhesmi|vmaxfp|evmhesmf|evmhoumi|vslo|evmhosmi|evmhosmf|machhwuo|machhwuo\\.|ps_merge00|ps_merge00\\.|evmhessfa|evmhossfa|evmheumia|evmhesmia|evmhesmfa|evmhoumia|evmhosmia|evmhosmfa|vsubuhm|bcdsub\\.|vavguh|vabsduh|vandc|vcmpequh\\.|udi1fcm\\.|udi1fcm|vcmpneh\\.|evmwhssf|vpmsumh|evmwlumi|vminfp|evmwhumi|vsro|evmwhsmi|vpkudum|evmwhsmf|evmwssf|machhwo|evmwumi|machhwo\\.|evmwsmi|evmwsmf|nmachhwo|nmachhwo\\.|ps_merge01|ps_merge01\\.|evmwhssfa|evmwlumia|evmwhumia|evmwhsmia|evmwhsmfa|evmwssfa|evmwumia|evmwsmia|evmwsmfa|vsubuwm|bcdus\\.|vavguw|vabsduw|vmr|vor|vcmpnew\\.|vpmsumw|vcmpequw\\.|udi2fcm\\.|udi2fcm|machhwsuo|machhwsuo\\.|ps_merge10|ps_merge10\\.|vsubudm|evaddusiaaw|bcds\\.|evaddssiaaw|evsubfusiaaw|evsubfssiaaw|evmra|vxor|evdivws|vcmpeqfp\\.|udi3fcm\\.|vcmpequd\\.|udi3fcm|evdivwu|vpmsumd|evaddumiaaw|evaddsmiaaw|evsubfumiaaw|evsubfsmiaaw|vpkudus|machhwso|machhwso\\.|nmachhwso|nmachhwso\\.|ps_merge11|ps_merge11\\.|vsubuqm|evmheusiaaw|bcdtrunc\\.|evmhessiaaw|vavgsb|evmhessfaaw|evmhousiaaw|vnot|vnor|evmhossiaaw|udi4fcm\\.|udi4fcm|vcmpnezb\\.|evmhossfaaw|evmheumiaaw|vcipher|vcipherlast|evmhesmiaaw|evmhesmfaaw|vgbbd|evmhoumiaaw|evmhosmiaaw|evmhosmfaaw|macchwuo|macchwuo\\.|evmhegumiaa|evmhegsmiaa|evmhegsmfaa|evmhogumiaa|evmhogsmiaa|evmhogsmfaa|vsubcuq|evmwlusiaaw|bcdutrunc\\.|evmwlssiaaw|vavgsh|vorc|udi5fcm\\.|udi5fcm|vcmpnezh\\.|vncipher|evmwlumiaaw|vncipherlast|evmwlsmiaaw|vbpermq|vpksdus|evmwssfaa|macchwo|evmwumiaa|macchwo\\.|evmwsmiaa|evmwsmfaa|nmacchwo|nmacchwo\\.|evmheusianw|vsubcuw|evmhessianw|bcdctsq\\.|bcdcfsq\\.|bcdctz\\.|bcdctn\\.|bcdcfz\\.|bcdcfn\\.|bcdsetsgn\\.|vavgsw|evmhessfanw|vnand|evmhousianw|evmhossianw|udi6fcm\\.|udi6fcm|vcmpnezw\\.|evmhossfanw|evmheumianw|evmhesmianw|evmhesmfanw|evmhoumianw|evmhosmianw|evmhosmfanw|macchwsuo|macchwsuo\\.|evmhegumian|evmhegsmian|evmhegsmfan|evmhogumian|evmhogsmian|evmhogsmfan|evmwlusianw|bcdsr\\.|evmwlssianw|vsld|vcmpgefp\\.|udi7fcm\\.|udi7fcm|vsbox|evmwlumianw|evmwlsmianw|vbpermd|vpksdss|evmwssfan|macchwso|evmwumian|macchwso\\.|evmwsmian|evmwsmfan|nmacchwso|nmacchwso\\.|vsububs|vclzlsbb|vctzlsbb|vnegw|vnegd|vprtybw|vprtybd|vprtybq|vextsb2w|vextsh2w|vextsb2d|vextsh2d|vextsw2d|vctzb|vctzh|vctzw|vctzd|mfvscr|vcmpgtub\\.|udi8fcm\\.|udi8fcm|vsum4ubs|vextublx|vsubuhs|mtvscr|vcmpgtuh\\.|vsum4shs|udi9fcm\\.|udi9fcm|vextuhlx|vupkhsw|vsubuws|vshasigmaw|veqv|vcmpgtuw\\.|udi10fcm\\.|udi10fcm|vsum2sws|vmrgow|vextuwlx|vshasigmad|vsrd|vcmpgtfp\\.|udi11fcm\\.|vcmpgtud\\.|udi11fcm|vupklsw|vsubsbs|vclzb|vpopcntb|vsrv|vcmpgtsb\\.|udi12fcm\\.|udi12fcm|vsum4sbs|vextubrx|maclhwuo|maclhwuo\\.|vsubshs|vclzh|vpopcnth|vslv|vcmpgtsh\\.|vextuhrx|udi13fcm\\.|udi13fcm|maclhwo|maclhwo\\.|nmaclhwo|nmaclhwo\\.|vsubsws|vclzw|vpopcntw|vcmpgtsw\\.|udi14fcm\\.|udi14fcm|vsumsws|vmrgew|vextuwrx|maclhwsuo|maclhwsuo\\.|vclzd|vpopcntd|vcmpbfp\\.|udi15fcm\\.|vcmpgtsd\\.|udi15fcm|maclhwso|maclhwso\\.|nmaclhwso|nmaclhwso\\.|dcbz_l|mulli|muli|subfic|sfi|dozi|cmplwi|cmpldi|cmpli|cmpli|cmpwi|cmpdi|cmpi|cmpi|addic|ai|subic|addic\\.|ai\\.|subic\\.|li|lil|addi|cal|subi|la|lis|liu|addis|cau|subis|bdnz\\-|bdnz\\+|bdnz|bdn|bdnzl\\-|bdnzl\\+|bdnzl|bdnl|bdnza\\-|bdnza\\+|bdnza|bdna|bdnzla\\-|bdnzla\\+|bdnzla|bdnla|bdz\\-|bdz\\+|bdz|bdzl\\-|bdzl\\+|bdzl|bdza\\-|bdza\\+|bdza|bdzla\\-|bdzla\\+|bdzla|bge\\-|bge\\+|bge|bnl\\-|bnl\\+|bnl|bgel\\-|bgel\\+|bgel|bnll\\-|bnll\\+|bnll|bgea\\-|bgea\\+|bgea|bnla\\-|bnla\\+|bnla|bgela\\-|bgela\\+|bgela|bnlla\\-|bnlla\\+|bnlla|ble\\-|ble\\+|ble|bng\\-|bng\\+|bng|blel\\-|blel\\+|blel|bngl\\-|bngl\\+|bngl|blea\\-|blea\\+|blea|bnga\\-|bnga\\+|bnga|blela\\-|blela\\+|blela|bngla\\-|bngla\\+|bngla|bne\\-|bne\\+|bne|bnel\\-|bnel\\+|bnel|bnea\\-|bnea\\+|bnea|bnela\\-|bnela\\+|bnela|bns\\-|bns\\+|bns|bnu\\-|bnu\\+|bnu|bnsl\\-|bnsl\\+|bnsl|bnul\\-|bnul\\+|bnul|bnsa\\-|bnsa\\+|bnsa|bnua\\-|bnua\\+|bnua|bnsla\\-|bnsla\\+|bnsla|bnula\\-|bnula\\+|bnula|blt\\-|blt\\+|blt|bltl\\-|bltl\\+|bltl|blta\\-|blta\\+|blta|bltla\\-|bltla\\+|bltla|bgt\\-|bgt\\+|bgt|bgtl\\-|bgtl\\+|bgtl|bgta\\-|bgta\\+|bgta|bgtla\\-|bgtla\\+|bgtla|beq\\-|beq\\+|beq|beql\\-|beql\\+|beql|beqa\\-|beqa\\+|beqa|beqla\\-|beqla\\+|beqla|bso\\-|bso\\+|bso|bun\\-|bun\\+|bun|bsol\\-|bsol\\+|bsol|bunl\\-|bunl\\+|bunl|bsoa\\-|bsoa\\+|bsoa|buna\\-|buna\\+|buna|bsola\\-|bsola\\+|bsola|bunla\\-|bunla\\+|bunla|bdnzf\\-|bdnzf\\+|bdnzf|bdnzfl\\-|bdnzfl\\+|bdnzfl|bdnzfa\\-|bdnzfa\\+|bdnzfa|bdnzfla\\-|bdnzfla\\+|bdnzfla|bdzf\\-|bdzf\\+|bdzf|bdzfl\\-|bdzfl\\+|bdzfl|bdzfa\\-|bdzfa\\+|bdzfa|bdzfla\\-|bdzfla\\+|bdzfla|bf\\-|bf\\+|bf|bbf|bfl\\-|bfl\\+|bfl|bbfl|bfa\\-|bfa\\+|bfa|bbfa|bfla\\-|bfla\\+|bfla|bbfla|bdnzt\\-|bdnzt\\+|bdnzt|bdnztl\\-|bdnztl\\+|bdnztl|bdnzta\\-|bdnzta\\+|bdnzta|bdnztla\\-|bdnztla\\+|bdnztla|bdzt\\-|bdzt\\+|bdzt|bdztl\\-|bdztl\\+|bdztl|bdzta\\-|bdzta\\+|bdzta|bdztla\\-|bdztla\\+|bdztla|bt\\-|bt\\+|bt|bbt|btl\\-|btl\\+|btl|bbtl|bta\\-|bta\\+|bta|bbta|btla\\-|btla\\+|btla|bbtla|bc\\-|bc\\+|bc|bcl\\-|bcl\\+|bcl|bca\\-|bca\\+|bca|bcla\\-|bcla\\+|bcla|svc|svcl|sc|svca|svcla|b|bl|ba|bla|mcrf|addpcis|subpcis|bdnzlr|bdnzlr\\-|bdnzlrl|bdnzlrl\\-|bdnzlr\\+|bdnzlrl\\+|bdzlr|bdzlr\\-|bdzlrl|bdzlrl\\-|bdzlr\\+|bdzlrl\\+|blr|br|blrl|brl|bdnzlr\\-|bdnzlrl\\-|bdnzlr\\+|bdnzlrl\\+|bdzlr\\-|bdzlrl\\-|bdzlr\\+|bdzlrl\\+|bgelr|bgelr\\-|bger|bnllr|bnllr\\-|bnlr|bgelrl|bgelrl\\-|bgerl|bnllrl|bnllrl\\-|bnlrl|blelr|blelr\\-|bler|bnglr|bnglr\\-|bngr|blelrl|blelrl\\-|blerl|bnglrl|bnglrl\\-|bngrl|bnelr|bnelr\\-|bner|bnelrl|bnelrl\\-|bnerl|bnslr|bnslr\\-|bnsr|bnulr|bnulr\\-|bnslrl|bnslrl\\-|bnsrl|bnulrl|bnulrl\\-|bgelr\\+|bnllr\\+|bgelrl\\+|bnllrl\\+|blelr\\+|bnglr\\+|blelrl\\+|bnglrl\\+|bnelr\\+|bnelrl\\+|bnslr\\+|bnulr\\+|bnslrl\\+|bnulrl\\+|bgelr\\-|bnllr\\-|bgelrl\\-|bnllrl\\-|blelr\\-|bnglr\\-|blelrl\\-|bnglrl\\-|bnelr\\-|bnelrl\\-|bnslr\\-|bnulr\\-|bnslrl\\-|bnulrl\\-|bgelr\\+|bnllr\\+|bgelrl\\+|bnllrl\\+|blelr\\+|bnglr\\+|blelrl\\+|bnglrl\\+|bnelr\\+|bnelrl\\+|bnslr\\+|bnulr\\+|bnslrl\\+|bnulrl\\+|bltlr|bltlr\\-|bltr|bltlrl|bltlrl\\-|bltrl|bgtlr|bgtlr\\-|bgtr|bgtlrl|bgtlrl\\-|bgtrl|beqlr|beqlr\\-|beqr|beqlrl|beqlrl\\-|beqrl|bsolr|bsolr\\-|bsor|bunlr|bunlr\\-|bsolrl|bsolrl\\-|bsorl|bunlrl|bunlrl\\-|bltlr\\+|bltlrl\\+|bgtlr\\+|bgtlrl\\+|beqlr\\+|beqlrl\\+|bsolr\\+|bunlr\\+|bsolrl\\+|bunlrl\\+|bltlr\\-|bltlrl\\-|bgtlr\\-|bgtlrl\\-|beqlr\\-|beqlrl\\-|bsolr\\-|bunlr\\-|bsolrl\\-|bunlrl\\-|bltlr\\+|bltlrl\\+|bgtlr\\+|bgtlrl\\+|beqlr\\+|beqlrl\\+|bsolr\\+|bunlr\\+|bsolrl\\+|bunlrl\\+|bdnzflr|bdnzflr\\-|bdnzflrl|bdnzflrl\\-|bdnzflr\\+|bdnzflrl\\+|bdzflr|bdzflr\\-|bdzflrl|bdzflrl\\-|bdzflr\\+|bdzflrl\\+|bflr|bflr\\-|bbfr|bflrl|bflrl\\-|bbfrl|bflr\\+|bflrl\\+|bflr\\-|bflrl\\-|bflr\\+|bflrl\\+|bdnztlr|bdnztlr\\-|bdnztlrl|bdnztlrl\\-|bdnztlr\\+|bdnztlrl\\+|bdztlr|bdztlr\\-|bdztlrl|bdztlrl\\-|bdztlr\\+|bdztlrl\\+|btlr|btlr\\-|bbtr|btlrl|btlrl\\-|bbtrl|btlr\\+|btlrl\\+|btlr\\-|btlrl\\-|btlr\\+|btlrl\\+|bclr\\-|bclrl\\-|bclr\\+|bclrl\\+|bclr|bcr|bclrl|bcrl|rfid|crnot|crnor|rfmci|rfdi|rfi|rfci|rfsvc|rfgi|crandc|rfebb|isync|ics|crclr|crxor|dnh|crnand|crand|hrfid|crset|creqv|urfid|stop|doze|crorc|nap|crmove|cror|sleep|rvwinkle|bctr|bctrl|bgectr|bgectr\\-|bnlctr|bnlctr\\-|bgectrl|bgectrl\\-|bnlctrl|bnlctrl\\-|blectr|blectr\\-|bngctr|bngctr\\-|blectrl|blectrl\\-|bngctrl|bngctrl\\-|bnectr|bnectr\\-|bnectrl|bnectrl\\-|bnsctr|bnsctr\\-|bnuctr|bnuctr\\-|bnsctrl|bnsctrl\\-|bnuctrl|bnuctrl\\-|bgectr\\+|bnlctr\\+|bgectrl\\+|bnlctrl\\+|blectr\\+|bngctr\\+|blectrl\\+|bngctrl\\+|bnectr\\+|bnectrl\\+|bnsctr\\+|bnuctr\\+|bnsctrl\\+|bnuctrl\\+|bgectr\\-|bnlctr\\-|bgectrl\\-|bnlctrl\\-|blectr\\-|bngctr\\-|blectrl\\-|bngctrl\\-|bnectr\\-|bnectrl\\-|bnsctr\\-|bnuctr\\-|bnsctrl\\-|bnuctrl\\-|bgectr\\+|bnlctr\\+|bgectrl\\+|bnlctrl\\+|blectr\\+|bngctr\\+|blectrl\\+|bngctrl\\+|bnectr\\+|bnectrl\\+|bnsctr\\+|bnuctr\\+|bnsctrl\\+|bnuctrl\\+|bltctr|bltctr\\-|bltctrl|bltctrl\\-|bgtctr|bgtctr\\-|bgtctrl|bgtctrl\\-|beqctr|beqctr\\-|beqctrl|beqctrl\\-|bsoctr|bsoctr\\-|bunctr|bunctr\\-|bsoctrl|bsoctrl\\-|bunctrl|bunctrl\\-|bltctr\\+|bltctrl\\+|bgtctr\\+|bgtctrl\\+|beqctr\\+|beqctrl\\+|bsoctr\\+|bunctr\\+|bsoctrl\\+|bunctrl\\+|bltctr\\-|bltctrl\\-|bgtctr\\-|bgtctrl\\-|beqctr\\-|beqctrl\\-|bsoctr\\-|bunctr\\-|bsoctrl\\-|bunctrl\\-|bltctr\\+|bltctrl\\+|bgtctr\\+|bgtctrl\\+|beqctr\\+|beqctrl\\+|bsoctr\\+|bunctr\\+|bsoctrl\\+|bunctrl\\+|bfctr|bfctr\\-|bfctrl|bfctrl\\-|bfctr\\+|bfctrl\\+|bfctr\\-|bfctrl\\-|bfctr\\+|bfctrl\\+|btctr|btctr\\-|btctrl|btctrl\\-|btctr\\+|btctrl\\+|btctr\\-|btctrl\\-|btctr\\+|btctrl\\+|bcctr\\-|bcctrl\\-|bcctr\\+|bcctrl\\+|bcctr|bcc|bcctrl|bccl|bctar\\-|bctarl\\-|bctar\\+|bctarl\\+|bctar|bctarl|rlwimi|rlimi|rlwimi\\.|rlimi\\.|rotlwi|clrlwi|rlwinm|rlinm|rotlwi\\.|clrlwi\\.|rlwinm\\.|rlinm\\.|rlmi|rlmi\\.|rotlw|rlwnm|rlnm|rotlw\\.|rlwnm\\.|rlnm\\.|nop|ori|oril|oris|oriu|xnop|xori|xoril|xoris|xoriu|andi\\.|andil\\.|andis\\.|andiu\\.|rotldi|clrldi|rldicl|rotldi\\.|clrldi\\.|rldicl\\.|rldicr|rldicr\\.|rldic|rldic\\.|rldimi|rldimi\\.|rotld|rldcl|rotld\\.|rldcl\\.|rldcr|rldcr\\.|cmpw|cmpd|cmp|cmp|twlgt|tlgt|twllt|tllt|tweq|teq|twlge|tlge|twlnl|tlnl|twlle|tlle|twlng|tlng|twgt|tgt|twge|tge|twnl|tnl|twlt|tlt|twle|tle|twng|tng|twne|tne|trap|twu|tu|tw|t|lvsl|lvebx|lbfcmx|subfc|sf|subc|subfc\\.|sf\\.|subc\\.|mulhdu|mulhdu\\.|addc|a|addc\\.|a\\.|mulhwu|mulhwu\\.|lxsiwzx|isellt|tlbilxlpid|tlbilxpid|tlbilxva|tlbilx|mfcr|mfocrf|lwarx|ldx|icbt|lwzx|lx|slw|sl|slw\\.|sl\\.|cntlzw|cntlz|cntlzw\\.|cntlz\\.|sld|sld\\.|and|and\\.|maskg|maskg\\.|ldepx|waitasec|wait|lwepx|cmplw|cmpld|cmpl|cmpl|lvsr|lvehx|lhfcmx|mviwsplt|iselgt|lvewx|addg6s|lxsiwax|iseleq|isel|subf|sub|subf\\.|sub\\.|mfvsrd|mffprd|mfvrd|eratilx|lbarx|ldux|dcbst|lwzux|lux|cntlzd|cntlzd\\.|andc|andc\\.|waitrsv|waitimpl|wait|dcbstep|tdlgt|tdllt|tdeq|tdlge|tdlnl|tdlle|tdlng|tdgt|tdge|tdnl|tdlt|tdle|tdng|tdne|tdu|td|lwfcmx|mulhd|mulhd\\.|mulhw|mulhw\\.|dlmzb|dlmzb\\.|mtsrd|mfmsr|ldarx|dcbfl|dcbf|lbzx|lbepx|dni|lvx|lqfcmx|neg|neg\\.|mul|mul\\.|mvidsplt|mtsrdin|mffprwz|mfvrwz|mfvsrwz|lharx|clf|lbzux|popcntb|not|nor|not\\.|nor\\.|dcbfep|setb|wrtee|dcbtstls|stvebx|stbfcmx|subfe|sfe|subfe\\.|sfe\\.|adde|ae|adde\\.|ae\\.|stxsiwx|msgsndp|dcbtstlse|mtcr|mtcrf|mtocrf|mtmsr|mtsle|eratsx|eratsx\\.|stdx|stwcx\\.|stwx|stx|slq|slq\\.|sle|sle\\.|prtyw|stdepx|stwepx|wrteei|dcbtls|stvehx|sthfcmx|addex|addex\\.|msgclrp|dcbtlse|mtmsrd|mtvsrd|mtfprd|mtvrd|eratre|stdux|stqcx\\.|wchkall|stwux|stux|sliq|sliq\\.|prtyd|cmprb|icblq\\.|stvewx|stwfcmx|subfze|sfze|subfze\\.|sfze\\.|addze|aze|addze\\.|aze\\.|msgsnd|mtsr|mtfprwa|mtvrwa|mtvsrwa|eratwe|ldawx\\.|stdcx\\.|stbx|sllq|sllq\\.|sleq|sleq\\.|stbepx|cmpeqb|icblc|stvx|stqfcmx|subfme|sfme|subfme\\.|sfme\\.|mulld|mulld\\.|addme|ame|addme\\.|ame\\.|mullw|muls|mullw\\.|muls\\.|icblce|msgclr|mtsrin|mtsri|mtfprwz|mtvrwz|mtvsrwz|dcbtstt|dcbtst|dcbtst|dcbtst|stbux|slliq|slliq\\.|bpermd|dcbtstep|mfdcrx|mfdcrx\\.|lvexbx|icbt|lvepxl|ldfcmx|doz|doz\\.|modud|add|cax|add\\.|cax\\.|moduw|lxvx|lxvl|ehpriv|tlbiel|tlbiel|mfapidi|lqarx|lscbx|lscbx\\.|dcbtt|dcbt|dcbt|dcbt|lhzx|cdtbcd|eqv|eqv\\.|lhepx|mfdcrux|lvexhx|lvepx|lxvll|mfbhrbe|tlbie|tlbie|tlbie|tlbi|mfvsrld|ldmx|eciwx|lhzux|cbcdtd|xor|xor\\.|dcbtep|mfexisr|mfexier|mfbr0|mfbr1|mfbr2|mfbr3|mfbr4|mfbr5|mfbr6|mfbr7|mfbear|mfbesr|mfiocr|mfdmacr0|mfdmact0|mfdmada0|mfdmasa0|mfdmacc0|mfdmacr1|mfdmact1|mfdmada1|mfdmasa1|mfdmacc1|mfdmacr2|mfdmact2|mfdmada2|mfdmasa2|mfdmacc2|mfdmacr3|mfdmact3|mfdmada3|mfdmasa3|mfdmacc3|mfdmasr|mfdcr|mfdcr\\.|lvexwx|dcread|div|div\\.|lxvdsx|mfpmr|mftmr|slbsync|mfmq|mfxer|mfrtcu|mfrtcl|mfdec|mflr|mfctr|mfdscr|mftid|mfdsisr|mfdar|mfdec|mfsdr0|mfsdr1|mfsrr0|mfsrr1|mfcfar|mfpid|mfcsrr0|mfcsrr1|mfdear|mfesr|mfivpr|mfctrl|mfcmpa|mfcmpb|mfcmpc|mfcmpd|mficr|mfder|mfcounta|mfcountb|mfcmpe|mfcmpf|mfcmpg|mfcmph|mflctrl1|mflctrl2|mfictrl|mfbar|mfvrsave|mfusprg0|mfsprg|mfsprg4|mfsprg5|mfsprg6|mfsprg7|mftbu|mftb|mftbl|mfsprg0|mfsprg1|mfsprg2|mfsprg3|mfasr|mfear|mfpir|mfpvr|mfdbsr|mfdbcr0|mfdbcr1|mfdbcr2|mfiac1|mfiac2|mfiac3|mfiac4|mfdac1|mfdac2|mfdvc1|mfdvc2|mftsr|mftcr|mfivor0|mfivor1|mfivor2|mfivor3|mfivor4|mfivor5|mfivor6|mfivor7|mfivor8|mfivor9|mfivor10|mfivor11|mfivor12|mfivor13|mfivor14|mfivor15|mfspefscr|mfbbear|mfbbtar|mfivor32|mfibatu|mfivor33|mfibatl|mfivor34|mfivor35|mfdbatu|mfdbatl|mfic_cst|mfic_adr|mfic_dat|mfdc_cst|mfdc_adr|mfdc_dat|mfmcsrr0|mfmcsrr1|mfmcsr|mfmcar|mfdpdr|mfdpir|mfimmr|mfmi_ctr|mfmi_ap|mfmi_epn|mfmi_twc|mfmi_rpn|mfmd_ctr|mfm_casid|mfmd_ap|mfmd_epn|mfmd_twb|mfmd_twc|mfmd_rpn|mfm_tw|mfmi_dbcam|mfmi_dbram0|mfmi_dbram1|mfmd_dbcam|mfmd_dbram0|mfmd_dbram1|mfivndx|mfdvndx|mfivlim|mfdvlim|mfclcsr|mfccr1|mfppr|mfppr32|mfrstcfg|mfdcdbtrl|mfdcdbtrh|mficdbtr|mfummcr0|mfupmc1|mfupmc2|mfusia|mfummcr1|mfupmc3|mfupmc4|mfzpr|mfpid|mfmmucr|mfccr0|mfiac3|mfiac4|mfdvc1|mfdvc2|mfmmcr0|mfpmc1|mfsgr|mfdcwr|mfpmc2|mfsia|mfsler|mfmmcr1|mfsu0r|mfdbcr1|mfpmc3|mfpmc4|mficdbdr|mfesr|mfdear|mfevpr|mfcdbcr|mftsr|mftcr|mfpit|mftbhi|mftblo|mfsrr2|mfsrr3|mfdbsr|mfdbcr0|mfdbdr|mfiac1|mfiac2|mfdac1|mfdac2|mfl2cr|mfdccr|mficcr|mfictc|mfpbl1|mfthrm1|mfpbu1|mfthrm2|mfpbl2|mfthrm3|mfpbu2|mfspr|lwax|dst|lhax|lvxl|abs|abs\\.|divs|divs\\.|lxvwsx|tlbia|mftbu|mftb|mftbl|lwaux|dstst|lhaux|popcntw|mtdcrx|mtdcrx\\.|stvexbx|dcblc|stdfcmx|divdeu|divdeu\\.|divweu|divweu\\.|stxvx|stxvl|dcblce|slbmte|mtvsrws|pbt\\.|icswx|icswx\\.|sthx|orc|orc\\.|sthepx|mtdcrux|stvexhx|dcblq\\.|divde|divde\\.|divwe|divwe\\.|stxvll|clrbhrb|slbie|mtvsrdd|lwzmx|ecowx|sthux|mdors|miso|yield|mdoio|mdoom|yield|mdoio|mdoom|mr|or|mr\\.|or\\.|mtexisr|mtexier|mtbr0|mtbr1|mtbr2|mtbr3|mtbr4|mtbr5|mtbr6|mtbr7|mtbear|mtbesr|mtiocr|mtdmacr0|mtdmact0|mtdmada0|mtdmasa0|mtdmacc0|mtdmacr1|mtdmact1|mtdmada1|mtdmasa1|mtdmacc1|mtdmacr2|mtdmact2|mtdmada2|mtdmasa2|mtdmacc2|mtdmacr3|mtdmact3|mtdmada3|mtdmasa3|mtdmacc3|mtdmasr|mtdcr|mtdcr\\.|stvexwx|dccci|dci|divdu|divdu\\.|divwu|divwu\\.|mtpmr|mttmr|slbieg|mtmq|mtxer|mtlr|mtctr|mtdscr|mttid|mtdsisr|mtdar|mtrtcu|mtrtcl|mtdec|mtsdr0|mtsdr1|mtsrr0|mtsrr1|mtcfar|mtpid|mtdecar|mtcsrr0|mtcsrr1|mtdear|mtesr|mtivpr|mtcmpa|mtcmpb|mtcmpc|mtcmpd|mticr|mtder|mtcounta|mtcountb|mtctrl|mtcmpe|mtcmpf|mtcmpg|mtcmph|mtlctrl1|mtlctrl2|mtictrl|mtbar|mtvrsave|mtusprg0|mtsprg|mtsprg0|mtsprg1|mtsprg2|mtsprg3|mtsprg4|mtsprg5|mtsprg6|mtsprg7|mtasr|mtear|mttbl|mttbu|mtdbsr|mtdbcr0|mtdbcr1|mtdbcr2|mtiac1|mtiac2|mtiac3|mtiac4|mtdac1|mtdac2|mtdvc1|mtdvc2|mttsr|mttcr|mtivor0|mtivor1|mtivor2|mtivor3|mtivor4|mtivor5|mtivor6|mtivor7|mtivor8|mtivor9|mtivor10|mtivor11|mtivor12|mtivor13|mtivor14|mtivor15|mtspefscr|mtbbear|mtbbtar|mtivor32|mtibatu|mtivor33|mtibatl|mtivor34|mtivor35|mtdbatu|mtdbatl|mtmcsrr0|mtmcsrr1|mtmcsr|mtivndx|mtdvndx|mtivlim|mtdvlim|mtclcsr|mtccr1|mtppr|mtppr32|mtummcr0|mtupmc1|mtupmc2|mtusia|mtummcr1|mtupmc3|mtupmc4|mtzpr|mtpid|mtrmmucr|mtccr0|mtiac3|mtiac4|mtdvc1|mtdvc2|mtmmcr0|mtpmc1|mtsgr|mtdcwr|mtpmc2|mtsia|mtsler|mtmmcr1|mtsu0r|mtdbcr1|mtpmc3|mtpmc4|mticdbdr|mtesr|mtdear|mtevpr|mtcdbcr|mttsr|mttcr|mtpit|mttbhi|mttblo|mtsrr2|mtsrr3|mtdbsr|mtdbdr|mtdbcr0|mtiac1|mtiac2|mtdac1|mtdac2|mtl2cr|mtdccr|mticcr|mtictc|mtpbl1|mtthrm1|mtpbu1|mtthrm2|mtpbl2|mtthrm3|mtpbu2|mtspr|dcbi|nand|nand\\.|dsn|dcread|icbtls|stvxl|nabs|nabs\\.|divd|divd\\.|divw|divw\\.|icbtlse|slbia|slbia|cli|popcntd|cmpb|mcrxr|lbdx|bblels|lvlx|lbfcmux|subfco|sfo|subco|subfco\\.|sfo\\.|subco\\.|addco|ao|addco\\.|ao\\.|lxsspx|clcs|ldbrx|lswx|lsx|lwbrx|lbrx|lfsx|srw|sr|srw\\.|sr\\.|rrib|rrib\\.|cnttzw|cnttzw\\.|srd|srd\\.|maskir|maskir\\.|lhdx|lvtrx|bbelr|lvrx|lhfcmux|subfo|subo|subfo\\.|subo\\.|tlbsync|lfsux|cnttzd|cnttzd\\.|mcrxrx|lwdx|lvtlx|lwat|lwfcmux|lxsdx|mfsr|lswi|lsi|hwsync|lwsync|ptesync|sync|sync|msync|sync|lwsync|dcs|lfdx|mffgpr|lfdepx|lddx|lvswx|ldat|lqfcmux|nego|nego\\.|mulo|mulo\\.|mfsri|dclst|lfdux|stbdx|stvlx|stbfcmux|stxsspx|tbegin\\.|subfeo|sfeo|subfeo\\.|sfeo\\.|addeo|aeo|addeo\\.|aeo\\.|mfsrin|stdbrx|stswx|stsx|stwbrx|stbrx|stfsx|srq|srq\\.|sre|sre\\.|sthdx|stvfrx|stvrx|sthfcmux|tendall\\.|tend\\.|stbcx\\.|stfsux|sriq|sriq\\.|stwdx|stvflx|stwat|stwfcmux|stxsdx|tcheck|subfzeo|sfzeo|subfzeo\\.|sfzeo\\.|addzeo|azeo|addzeo\\.|azeo\\.|stswi|stsi|sthcx\\.|stfdx|srlq|srlq\\.|sreq|sreq\\.|mftgpr|stfdepx|stddx|stvswx|stdat|stqfcmux|subfmeo|sfmeo|subfmeo\\.|sfmeo\\.|mulldo|mulldo\\.|addmeo|ameo|addmeo\\.|ameo\\.|mullwo|mulso|mullwo\\.|mulso\\.|tsuspend\\.|tresume\\.|tsr\\.|darn|dcba|dcbal|stfdux|srliq|srliq\\.|lvsm|copy_first|copy|stvepxl|lvlxl|ldfcmux|dozo|dozo\\.|addo|caxo|addo\\.|caxo\\.|modsd|modsw|lxvw4x|lxsibzx|tabortwc\\.|tlbivax|lwzcix|lhbrx|lfdpx|lfqx|sraw|sra|sraw\\.|sra\\.|srad|srad\\.|lfddx|lvtrxl|stvepx|lvrxl|lxvh8x|lxsihzx|tabortdc\\.|rac|erativax|lhzcix|dss|lfqux|srawi|srai|srawi\\.|srai\\.|sradi|sradi\\.|lvtlxl|cp_abort|divo|divo\\.|lxvd2x|lxvx|tabortwci\\.|tlbsrx\\.|slbmfev|slbmfev|lbzcix|eieio|mbar|eieio|eieio|lfiwax|lvswxl|abso|abso\\.|divso|divso\\.|lxvb16x|tabortdci\\.|rmieg|ldcix|msgsync|lfiwzx|extswsli|extswsli\\.|paste|paste_last|paste\\.|stvlxl|stdfcmux|divdeuo|divdeuo\\.|divweuo|divweuo\\.|stxvw4x|stxsibx|tabort\\.|tlbsx|tlbsx\\.|slbmfee|slbmfee|stwcix|sthbrx|stfdpx|stfqx|sraq|sraq\\.|srea|srea\\.|extsh|exts|extsh\\.|exts\\.|stfddx|stvfrxl|wclrone|wclrall|wclr|stvrxl|divdeo|divdeo\\.|divweo|divweo\\.|stxvh8x|stxsihx|treclaim\\.|tlbrehi|tlbrelo|tlbre|sthcix|icswepx|icswepx\\.|stfqux|sraiq|sraiq\\.|extsb|extsb\\.|stvflxl|iccci|ici|divduo|divduo\\.|divwuo|divwuo\\.|stxvd2x|stxvx|tlbld|tlbwehi|tlbwelo|tlbwe|slbfee\\.|stbcix|icbi|stfiwx|extsw|extsw\\.|icbiep|stvswxl|icread|nabso|nabso\\.|divdo|divdo\\.|divwo|divwo\\.|stxvb16x|trechkpt\\.|tlbli|stdcix|dcbz|dclz|dcbzep|dcbzl|cctpl|cctpm|cctph|dstt|dststt|dssall|db8cyc|db10cyc|db12cyc|db16cyc|lwz|l|lwzu|lu|lbz|lbzu|stw|st|stwu|stu|stb|stbu|lhz|lhzu|lha|lhau|sth|sthu|lmw|lm|stmw|stm|lfs|lfsu|lfd|lfdu|stfs|stfsu|stfd|stfdu|lq|psq_l|lfq|lxsd|lxssp|lfdp|psq_lu|lfqu|ld|ldu|lwa|dadd|dadd\\.|dqua|dqua\\.|fdivs|fdivs\\.|fsubs|fsubs\\.|fadds|fadds\\.|fsqrts|fsqrts\\.|fres|fres|fres\\.|fres\\.|fmuls|fmuls\\.|frsqrtes|frsqrtes|frsqrtes\\.|frsqrtes\\.|fmsubs|fmsubs\\.|fmadds|fmadds\\.|fnmsubs|fnmsubs\\.|fnmadds|fnmadds\\.|dmul|dmul\\.|drrnd|drrnd\\.|dscli|dscli\\.|dquai|dquai\\.|dscri|dscri\\.|drintx|drintx\\.|dcmpo|dtstex|dtstdc|dtstdg|drintn|drintn\\.|dctdp|dctdp\\.|dctfix|dctfix\\.|ddedpd|ddedpd\\.|dxex|dxex\\.|dsub|dsub\\.|ddiv|ddiv\\.|dcmpu|dtstsf|dtstsfi|drsp|drsp\\.|dcffix|dcffix\\.|denbcd|denbcd\\.|fcfids|fcfids\\.|diex|diex\\.|fcfidus|fcfidus\\.|xsaddsp|xsmaddasp|xxsldwi|xscmpeqdp|xsrsqrtesp|xssqrtsp|xxsel|xssubsp|xsmaddmsp|xxspltd|xxmrghd|xxswapd|xxmrgld|xxpermdi|xscmpgtdp|xsresp|xsmulsp|xsmsubasp|xxmrghw|xscmpgedp|xsdivsp|xsmsubmsp|xxperm|xsadddp|xsmaddadp|xscmpudp|xscvdpuxws|xsrdpi|xsrsqrtedp|xssqrtdp|xssubdp|xsmaddmdp|xscmpodp|xscvdpsxws|xsrdpiz|xsredp|xsmuldp|xsmsubadp|xxmrglw|xsrdpip|xstsqrtdp|xsrdpic|xsdivdp|xsmsubmdp|xxpermr|xscmpexpdp|xsrdpim|xstdivdp|xvaddsp|xvmaddasp|xvcmpeqsp|xvcmpeqsp\\.|xvcvspuxws|xvrspi|xvrsqrtesp|xvsqrtsp|xvsubsp|xvmaddmsp|xvcmpgtsp|xvcmpgtsp\\.|xvcvspsxws|xvrspiz|xvresp|xvmulsp|xvmsubasp|xxspltw|xxextractuw|xvcmpgesp|xvcmpgesp\\.|xvcvuxwsp|xvrspip|xvtsqrtsp|xvrspic|xvdivsp|xvmsubmsp|xxspltib|xxinsertw|xvcvsxwsp|xvrspim|xvtdivsp|xvadddp|xvmaddadp|xvcmpeqdp|xvcmpeqdp\\.|xvcvdpuxws|xvrdpi|xvrsqrtedp|xvsqrtdp|xvsubdp|xvmaddmdp|xvcmpgtdp|xvcmpgtdp\\.|xvcvdpsxws|xvrdpiz|xvredp|xvmuldp|xvmsubadp|xvcmpgedp|xvcmpgedp\\.|xvcvuxwdp|xvrdpip|xvtsqrtdp|xvrdpic|xvdivdp|xvmsubmdp|xvcvsxwdp|xvrdpim|xvtdivdp|xsmaxcdp|xsnmaddasp|xxland|xscvdpsp|xscvdpspn|xsmincdp|xsnmaddmsp|xxlandc|xsrsp|xsmaxjdp|xsnmsubasp|xxlor|xscvuxdsp|xststdcsp|xsminjdp|xsnmsubmsp|xxlxor|xscvsxdsp|xsmaxdp|xsnmaddadp|xxlnor|xscvdpuxds|xscvspdp|xscvspdpn|xsmindp|xsnmaddmdp|xxlorc|xscvdpsxds|xsabsdp|xsxexpdp|xsxsigdp|xscvhpdp|xscvdphp|xscpsgndp|xsnmsubadp|xxlnand|xscvuxddp|xsnabsdp|xststdcdp|xsnmsubmdp|xxleqv|xscvsxddp|xsnegdp|xvmaxsp|xvnmaddasp|xvcvspuxds|xvcvdpsp|xvminsp|xvnmaddmsp|xvcvspsxds|xvabssp|xvmovsp|xvcpsgnsp|xvnmsubasp|xvcvuxdsp|xvnabssp|xvtstdcsp|xviexpsp|xvnmsubmsp|xvcvsxdsp|xvnegsp|xvmaxdp|xvnmaddadp|xvcvdpuxds|xvcvspdp|xsiexpdp|xvmindp|xvnmaddmdp|xvcvdpsxds|xvabsdp|xvxexpdp|xvxsigdp|xxbrh|xvxexpsp|xvxsigsp|xxbrw|xxbrd|xvcvhpsp|xvcvsphp|xxbrq|xvmovdp|xvcpsgndp|xvnmsubadp|xvcvuxddp|xvnabsdp|xvtstdcdp|xviexpdp|xvnmsubmdp|xvcvsxddp|xvnegdp|psq_st|stfq|lxv|stxv|stxsd|stxssp|stfdp|psq_stu|stfqu|std|stdu|stq|fcmpu|daddq|daddq\\.|dquaq|dquaq\\.|xsaddqp|xsaddqpo|xsrqpi|xsrqpix|fcpsgn|fcpsgn\\.|frsp|frsp\\.|fctiw|fcir|fctiw\\.|fcir\\.|fctiwz|fcirz|fctiwz\\.|fcirz\\.|fdiv|fd|fdiv\\.|fd\\.|fsub|fs|fsub\\.|fs\\.|fadd|fa|fadd\\.|fa\\.|fsqrt|fsqrt\\.|fsel|fsel\\.|fre|fre|fre\\.|fre\\.|fmul|fm|fmul\\.|fm\\.|frsqrte|frsqrte|frsqrte\\.|frsqrte\\.|fmsub|fms|fmsub\\.|fms\\.|fmadd|fma|fmadd\\.|fma\\.|fnmsub|fnms|fnmsub\\.|fnms\\.|fnmadd|fnma|fnmadd\\.|fnma\\.|fcmpo|dmulq|dmulq\\.|drrndq|drrndq\\.|xsmulqp|xsmulqpo|xsrqpxp|mtfsb1|mtfsb1\\.|fneg|fneg\\.|mcrfs|dscliq|dscliq\\.|dquaiq|dquaiq\\.|mtfsb0|mtfsb0\\.|fmr|fmr\\.|dscriq|dscriq\\.|drintxq|drintxq\\.|xscpsgnqp|ftdiv|dcmpoq|xscmpoqp|mtfsfi|mtfsfi|mtfsfi\\.|mtfsfi\\.|fnabs|fnabs\\.|fctiwu|fctiwu\\.|fctiwuz|fctiwuz\\.|ftsqrt|dtstexq|xscmpexpqp|dtstdcq|dtstdgq|drintnq|drintnq\\.|dctqpq|dctqpq\\.|fabs|fabs\\.|dctfixq|dctfixq\\.|ddedpdq|ddedpdq\\.|dxexq|dxexq\\.|xsmaddqp|xsmaddqpo|frin|frin\\.|xsmsubqp|xsmsubqpo|friz|friz\\.|xsnmaddqp|xsnmaddqpo|frip|frip\\.|xsnmsubqp|xsnmsubqpo|frim|frim\\.|dsubq|dsubq\\.|xssubqp|xssubqpo|ddivq|ddivq\\.|xsdivqp|xsdivqpo|mffs|mffs\\.|dcmpuq|xscmpuqp|dtstsfq|dtstsfiq|xststdcqp|mtfsf|mtfsf|mtfsf\\.|mtfsf\\.|drdpq|drdpq\\.|dcffixq|dcffixq\\.|xsabsqp|xsxexpqp|xsnabsqp|xsnegqp|xsxsigqp|xssqrtqp|xssqrtqpo|fctid|fctid|fctid\\.|fctid\\.|fctidz|fctidz|fctidz\\.|fctidz\\.|denbcdq|denbcdq\\.|xscvqpuwz|xscvudqp|xscvqpswz|xscvsdqp|xscvqpudz|xscvqpdp|xscvqpdpo|xscvdpqp|xscvqpsdz|fmrgow|fcfid|fcfid|fcfid\\.|fcfid\\.|diexq|diexq\\.|xsiexpqp|fctidu|fctidu\\.|fctiduz|fctiduz\\.|fmrgew|fcfidu|fcfidu\\.)\\s+",
+					"name": "entity.name.function.ppc.assembly"
+				},
+				{
+					"match": "\\b((0(x|X)[0-9a-fA-F]*)|(0(b|B)[01]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\\b",
+					"name": "constant.numeric.ppc.assembly"
+				}
+			]
+		},
+		"meta": {
+			"patterns": [
+				{
+					"begin": "^(.*):\\s+file format (.*)$",
+					"beginCaptures": {
+						"0": {
+							"name": "comment.ppc.assembly"
+						},
+						"1": {
+							"name": "entity.name.type.ppc.assembly"
+						}
+					},
+					"end": "^",
+					"name": "meta.embedded.ppcasm"
+				},
+				{
+					"begin": "^Disassembly of section (.*):$",
+					"beginCaptures": {
+						"0": {
+							"name": "comment.ppc.assembly"
+						},
+						"1": {
+							"name": "entity.name.tag.ppc.assembly"
+						}
+					},
+					"end": "^",
+					"name": "meta.embedded.ppcasm"
+				},
+				{
+					"begin": "^[0-9A-Za-z]+ <(.*)>:$",
+					"beginCaptures": {
+						"0": {
+							"name": "comment.ppc.assembly"
+						},
+						"1": {
+							"name": "entity.name.function.ppc.assembly"
+						}
+					},
+					"end": "^",
+					"name": "meta.embedded.ppcasm"
+				},
+				{
+					"begin": "^\\s*[0-9A-Za-z]+:(?:\\t[0-9A-Za-z]{2}\\s+){0,1}(?:\\t|$)",
+					"beginCaptures": {
+						"0": {
+							"name": "comment.ppc.assembly"
+						}
+					},
+					"end": "^",
+					"name": "meta.embedded.ppcasm",
+					"patterns": [
+						{
+							"include": "source.ppcasm"
+						}
+					]
+				},
+				{
+					"include": "#special_block"
+				},
+				{
+					"include": "source.c"
+				},
+				{
+					"include": "source.cpp"
+				},
+				{
+					"include": "source.c++"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line",
+				"match": "(?:--|\\/\\/|\\#|;).*$"
+			},
+			{
+				"begin": "/\\*",
+				"end": "\\*/",
+				"name": "comment.block"
+			},
+			{
+				"begin": "^\\s*[\\#%]\\s*if\\s+0\\b",
+				"end": "^\\s*[\\#%]\\s*endif\\b",
+				"name": "comment.preprocessor"
+			},
+			{
+				"begin": "^\\s*[0-9A-Za-z]+:(?:\\t[0-9A-Za-z]{2}\\s+){0,1}(?:\\t|$)",
+				"beginCaptures": {
+					"0": {
+						"name": "comment.ppc.assembly"
+					}
+				},
+				"end": "^",
+				"name": "meta.embedded.ppcasm",
+				"patterns": [
+					{
+						"include": "source.ppcasm"
+					}
+				]
+			},
+			{
+				"begin": "^(.*):\\s+file format (.*)$",
+				"beginCaptures": {
+					"0": {
+						"name": "comment.ppc.assembly"
+					},
+					"1": {
+						"name": "entity.name.type.ppc.assembly"
+					}
+				},
+				"end": "^",
+				"name": "meta.embedded.ppcasm"
+			}
+		]
+	},
+	"strings": {
+		"name": "string.quoted.double.asm",
+		"begin": "\"",
+		"end": "\"",
+		"patterns": [
+			{
+				"name": "constant.character.escape.asm",
+				"match": "\\\\."
+			}
+		]
+	},
+	"misc": {
+		"patterns": [
+			{
+				"match": "^\\s*(?:\\.abort|\\.align|\\.ascii|\\.asciz|\\.balign[wl]?|\\.byte|\\.comm|\\.data|\\.def|\\.dim|\\.double|\\.eject|\\.else|\\.end|\\.elseif|\\.endef|\\.endfunc|\\.endif|\\.endm|\\.endr|\\.equ|\\.equiv|\\.err|\\.even|\\.exitm|\\.extern|\\.fail|\\.file|\\.fill|\\.float|\\.func|.global|\\.hword|\\.ident|\\.if|\\.include|\\.incbin|\\.int|\\.irp|\\.irpc|\\.lcomm|\\.lflags|\\.line|\\.ln|\\.list|\\.long|\\.macro|\\.mri|\\.nolist|\\.octa|\\.org|\\.p2align[wl]?|\\.print|\\.psize|\\.purgem|\\.quad|\\.rept|\\.sbttl|\\.scl|\\.section|\\.set|\\.short|\\.single|\\.size|\\.sleb128|\\.skip|\\.space|\\.stabd|\\.stabn|\\.stabs|\\.string|\\.struct|\\.tag|\\.text|\\.title|\\.type|\\.uleb128|\\.val|\\.vtable_entry|\\.word|\\.tc)\\b",
+				"name": "support.class.ppc.assembly"
+			},
+			{
+				"match": "[*$](?=0x)",
+				"name": "storage.type.method.ppc.assembly"
+			},
+			{
+				"match": "^[_a-zA-Z0-9][a-zA-Z0-9-_.]*(?=:)",
+				"name": "storage.modifier.ppc.assembly"
+			},
+			{
+				"match": "(?<=[<]).+(?=[+>])",
+				"name": "entity.name.function.ppc.assembly"
+			},
+			{
+				"match": "^\\s*[0-9A-Fa-f]{4,}",
+				"name": "meta.preprocessor.ppc.assembly"
+			},
+			{
+				"begin": "\"",
+				"beginCaptures": {
+					"0": {
+						"name": "punctuation.definition.string.begin.ppc.assembly"
+					}
+				},
+				"end": "\"",
+				"endCaptures": {
+					"0": {
+						"name": "punctuation.definition.string.end.ppc.assembly"
+					}
+				},
+				"name": "string.quoted.double.include.ppc.assembly"
+			}
+		]
+	}
+},
+"scopeName": "source.asm"
+}
