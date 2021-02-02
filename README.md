@@ -10,7 +10,7 @@ Heavily borrows from [language-x86](https://github.com/taylorlapeyre/language-x8
 
 Instructions are taken from what's in binutils. 
 
-![from Slippi Source](https://github.com/OGoodness/VSCode-PowerPC-Syntax/blob/main/example.png)
+![from Slippi Source](https://i.imgur.com/UytQygr.png)
 
 ## Release Notes
 

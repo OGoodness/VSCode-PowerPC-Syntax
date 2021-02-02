@@ -1,8 +1,15 @@
 {
     "name": "powerpc-syntax",
     "displayName": "PowerPC Syntax",
-    "description": "",
+    "description": "Language support for POWER/ppc/powerpc assembly.",
+    "repository": "https://github.com/OGoodness/VSCode-PowerPC-Syntax",
+    "license": "MIT",
+    "publisher": "OGoodness",
     "version": "0.0.1",
+    "icon": "example.png",
+    "bugs": {
+        "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax/issues"
+    },
     "engines": {
         "vscode": "^1.52.0"
     },
