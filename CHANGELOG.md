@@ -7,9 +7,9 @@
 - Hover over Hex codes and see their resolved numbers.
     - Also, if the hex happens to be a SSBM Global Address or Character Data Offset, relevant data will appear.
 
-![Show Character Data](./images/character-data-hover.png)
-![Hover over Hex](./images/hover-hex.png)
-![Show Definition](./images/show-definition.png)
+![Show Character Data](https://i.imgur.com/qSrycj3.png)
+![Hover over Hex](https://i.imgur.com/WRacdNW.png)
+![Show Definition](https://i.imgur.com/ZUAqKjJ.png)
 
 # [1.0.2] - 2/4/2021
 - Updated `storage.modifier.ppc.assembly` to account for spaces or tabs at the start of the string

@@ -33,7 +33,7 @@
         "onCommand:soyfilesupport.showReadme"
     ],
     "main": "./client/out/extension",
-    "icon": "icon.png",
+    "icon": "images/icon.png",
     "homepage": "https://github.com/OGoodness/VSCode-PowerPC-Syntax",
     "bugs": {
         "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax/issues"
@@ -121,14 +121,7 @@
         ]
     },
     "scripts": {
-        "vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
-        "compile:client": "tsc -p ./client/tsconfig.json",
-        "compile:server": "tsc -p ./server/tsconfig.json",
-        "watch:client": "tsc -w -p ./client/tsconfig.json",
-        "watch:server": "tsc -w -p ./server/tsconfig.json",
-        "compile": "npm run compile:client && npm run compile:server",
-        "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-        "test": "sh ./scripts/e2e.sh"
+  
     },
     "devDependencies": {
         "@types/mocha": "^5.2.7",

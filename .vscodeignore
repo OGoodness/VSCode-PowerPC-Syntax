@@ -1,8 +1,11 @@
 .vscode/**/*
 .gitignore
+node_moduels/*
 src/**/*
 client/src/**/*
 server/src/**/*
+examples/*
+scripts/*
 out/tests/**/*
 **/*.js.map
 *.vsix
