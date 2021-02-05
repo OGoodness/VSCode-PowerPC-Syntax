@@ -1,3 +1,4 @@
-ignore
+out
 node_modules
-*.vsix
+client/server
+.vscode-test

@@ -1,0 +1,173 @@
+{
+    "foreach": {
+        "prefix": "sfor",
+        "body": [
+            "{foreach $${1:variable} in $${2:collection}}",
+            "    ${3:statements}",
+            "{/foreach}",
+            ""
+        ],
+        "description": "foreach template"
+    },
+    "forin": {
+        "prefix": "sforin",
+        "body": [
+            "{for $${1:i} in range(${2:from}, ${3:to}, ${4:step})}",
+            "    ${5:statements}",
+            "{/for}",
+            ""
+        ],
+        "description": "for..in template"
+    },
+    "if": {
+        "prefix": "sif",
+        "body": [
+            "{if ${1:condition}}",
+            "    ${2:statements}",
+            "{/if}",
+            ""
+        ],
+        "description": "if template"
+    },
+    "if-else": {
+        "prefix": "sife",
+        "body": [
+            "{if ${1:condition}}",
+            "    ${2:statements}",
+            "{else}",
+            "    ${3:statements}",
+            "{/if}",
+            ""
+        ],
+        "description": "if-else template"
+    },
+    "let": {
+        "prefix": "sl",
+        "body": [
+            "{let $${1:name}: ${2:value} /}",
+            ""
+        ],
+        "description": "let - one line template"
+    },
+    "let-block": {
+        "prefix": "slb",
+        "body": [
+            "{let $${1:name} kind=\"${2:text}${3:html}\"}",
+            "    ${4:statements}",
+            "{/let}",
+            ""
+        ],
+        "description": "let block"
+    },
+    "param": {
+        "prefix": "sp",
+        "body": [
+            "{param ${1:paramName}: ${2:value} /}"
+        ],
+        "description": "param - one line template"
+    },
+    "param-block": {
+        "prefix": "spb",
+        "body": [
+            "{param ${1:paramName} kind=\"${2:text}${3:html}\"}",
+            "    ${4:statements}",
+            "{/param}",
+            ""
+        ],
+        "description": "param block"
+    },
+    "param-signature": {
+        "prefix": "sps",
+        "body": [
+            " * @param ${1:paramName}"
+        ],
+        "description": "parameter signature template"
+    },
+    "call": {
+        "prefix": "sc",
+        "body": [
+            "{call ${1:namespace.template.name}}",
+            "    ${2:parameters}",
+            "{/call}",
+            ""
+        ],
+        "description": "call template"
+    },
+    "delcall": {
+        "prefix": "sdelc",
+        "body": [
+            "{delcall ${1:namespace.template.name}}",
+            "    ${2:parameters}",
+            "{/delcall}",
+            ""
+        ],
+        "description": "delcall template"
+    },
+    "delcall-empty-default": {
+        "prefix": "sdelcempty",
+        "body": [
+            "{delcall ${1:namespace.template.name} allowemptydefault=\"true\" /}"
+        ],
+        "description": "deltemplate call with allowemptydefault"
+    },
+    "template-skeleton": {
+        "prefix": "stemp",
+        "body": [
+            "{namespace ${1:your.namespace}}",
+            "",
+            "/**",
+            " * ${2:Informative comment about the template}",
+            " *",
+            " * @param ${3:value}",
+            " *",
+            "${4: * @client - remove if not necessary}",
+            " */",
+            "{template .${5:templateName}}",
+            "    ${6:template content}",
+            "{/template}",
+            ""
+        ],
+        "description": "template skeleton"
+    },
+    "deltemplate-skeleton": {
+        "prefix": "sdeltemp",
+        "body": [
+            "{delpackage ${1:package}}",
+            "{namespace ${2:your.namespace}}",
+            "",
+            "/**",
+            " * ${3:Informative comment about the template}",
+            " *",
+            " * @param ${4:paramName}",
+            " *",
+            "${5: * @client - remove if not necessary}",
+            " */",
+            "{deltemplate ${6:templateName}}",
+            "    ${7:template content}",
+            "{/deltemplate}",
+            ""
+        ],
+        "description": "deltemplate skeleton"
+    },
+    "noAutoEscape": {
+        "prefix": "|noAutoescape",
+        "body": [
+            "|noAutoescape"
+        ],
+        "description": "|noAutoescape"
+    },
+    "autoEscape": {
+        "prefix": "autoescape",
+        "body": [
+            "autoescape=\"strict\""
+        ],
+        "description": "autoescape=\"strict\""
+    },
+    "allowemptydefault": {
+        "prefix": "allowemptydefault",
+        "body": [
+            "allowemptydefault=\"true\""
+        ],
+        "description": "allowemptydefault=\"true\""
+    }
+}

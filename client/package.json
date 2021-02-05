@@ -1,0 +1,25 @@
+{
+	"name": "soy-language-client",
+	"description": "VSCode part of a language server",
+	"author": "Microsoft Corporation",
+	"license": "MIT",
+	"version": "1.0.0",
+	"publisher": "vscode",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Blodwynn/-VSCODE-.soy-language-server-client"
+	},
+	"engines": {
+		"vscode": "^1.25.0"
+	},
+	"scripts": {
+		"update-vscode": "vscode-install",
+		"postinstall": "vscode-install"
+	},
+	"dependencies": {
+		"fast-glob": "^2.2.7",
+		"linenumber": "^1.0.1",
+		"vscode": "^1.1.37",
+		"vscode-languageclient": "^4.4.2"
+	}
+}

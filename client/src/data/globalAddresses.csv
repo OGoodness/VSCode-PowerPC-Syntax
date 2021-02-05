@@ -1,0 +1,125 @@
+Address,Effect,Comments
+0x803B7C08,Classic mode continue coin requirements,0x00 - Very Easy (1 coin required)
+0x803B7C0D,lmode continue coin requirements,Same as above.
+0x803B7C11,All-Star mode continue coin requirements,"Same as above, but all five values in this offset are ""0A""."
+0x803C12E0,START of Per Character Action State Table,Indexed by Internal Character ID
+0x803c14f0,Aerial Down B table,
+0x803C167C,Per Character Neutral Special Action Initalization Table,Indexed by Internal Character ID
+0x803C2800,START of Shared Action State Function Table,See Action State Reference
+0x803D4A48,Game duration and pause on/off,"Loaded from DOL.See the ""Modifying Default Settings"" DOL mod section for information on the variable list: http://smashboards.com/threads/the-dol-mod-topic.326347/"
+0x803D4A50,Game duration and pause on/off,"0x08010000 = 8 minutes, pause off. 0x08000100 = 8 minutes, pause on"
+0x803f0328,Ready to fight banner visiblity status,
+0x803f0aa8,Stamina Mode Narrarator Sound FX ID,Other Special Melee Sound FX ID's are located around here
+0x803F0E06,P1 Character select,0x00 - Team (0x00 = Red 0x01 = Blue 0x02 = Green)
+0x803F0E08,P1 character select,
+0x803F0E2A,P2 Character select,0x01 - Player Mode (0x00 = Human 0x01 = CPU 0x02 = Demo? 0x03 = Disabled)
+0x803F0E2C,P2 character select,4 Bytes - Example: Reading 4 bytes at address 0x803F0E08 returns 0x00010A0A
+0x803F0E4E,P3 Character select,0x02 - Costume ID
+0x803c14f0,P3 character select,"Byte 2 is costume ID (goes from 0x00 to 0x03 or however many costumes a character has), so the example means player 1 has Fox's orange costume since 0x01 is the associated ID."
+0x803F0E72,P4 Character select,0x03 - Last VALID selected/hovered character ID (0x00 to 0x18)
+0x803F0E74,P4 character select,"Byte 3 and 4 indicate the character ID. Unsure if they're ever different. 0x00 is Dr. mario and 0x18 is Roy (Roster ordering). Therefore, the example means player 1 is Fox since 0x0A is Fox's ID."
+0x803F14C4,Start of Item Action Function Table,Indexed by Item ID. See Entity Data Offsets for info.
+0x803F20E0,,"These all seem to be addresses within a function, rather than a pointer to the start of the function."
+0x80432A28,Frame advance on/off,0x80000000 = on. Increment word by 1 to advance frame by frame. 00000000 = unpause
+0x80432A2C,Global speed modifier,Defaults at 0xA4CB8. Cut it in half for double speed (0x5265C).
+0x80452C68,START INGAME Camera Struct,See Entity Data Offsets for notes
+0x80453080,P1 Block,0x00 of P1's static Player Block data. Each player is 0xE90 apart (goes up to Player 6).
+0x8045310E,P1Stock,
+0x80453130,P1 character entity data pointer,Refer to the Char Offset table. Each subsequent player's pointer is stored at 0xE90
+0x80453F10,P2 Block,
+0x80453F9E,P2Stock,
+0x80453FC0,P2 character entity data pointer ,
+0x80454DA0,P3 Block,
+0x80454E2E,P3Stock,
+0x80454E50,P3 character entity data pointer,
+0x80455C30,P4 Block,
+0x80455CBE,P4Stock,
+0x80455CE0,P4 character entity data pointer,
+0x8045BF10,???,See above for variable list.
+0x8045BF28,Unlocked characters bitfield,"0 = locked, 1 = unlocked. Characters are in order of their external values excluding starters, from Mr. Game & Watch in the LSB to Ganondorf in 10"
+0x8045BF2A,Unlocked stages bitfield,"0 = locked, 1 = unlocked. Stages are in a unique order"
+0x8045C370,"Item Frequency, VS Mode (8-bit)",
+0x8045c384,Music/Sound volume slider last position?,"Doesn't actually affect the music/sound volume when changed, but if changed outside of sound menu the slider will appear at the newly inputted position upon next sound menu entry"
+0x8045D850,Start of Nametag Data,
+0x8046B6C4 ,Bomb Rain Timer,"If it is greater than 0x4B0, it rains bombs (likely num frames of current match)."
+0x8046B6C8,Game timer minutes/seconds left,Ex. 000001E0 = 8 minutes (1E0=decimal 480[seconds] = 8 minutes)
+0x8046B6CC,Game timer counter (16-bit),Counts up every frame to subtract from timer. Write 0 to this every frame to freeze timer.
+0x8046DB6D,,
+0x8046DB6E,Bomb Rain toggle/Is Sudden Death,Change to anything greater than 00 to immediately start bomb rain during a match (has to be at least 20 seconds after match starts for bombs to drop)
+0x8046DB80,Start of Current Match information,@ +0x08 = Item Switch values
+0x80479C5F,P1 Previous Input Timer (8-bit),These appear to reset to 0 whenever an input is received. 
+0x80479C8F,P2 Previous Input Timer (8-bit),"counts up 1 every frame until another input is sent, or it hits 0x64 (100 frames). Also resets on menu transition - Absolome"
+0x80479CBF,P3 Previous Input Timer (8-bit),These are spaced 0x30 apart
+0x80479CEF,P4 Previous Input Timer (8-bit),
+0x80479D30,Scene controller,00 = Current major; 01 = Pending major; 02 = Previous major; 03 = Current minor
+0x80479D60,Global frame timer,
+0x80479D68,Game pause on/off,0x10000000 = paused
+0x80479D7C,Game loop enable/disable flags,Disable game functions from processing each frame. Each bit is a flag for a different function.
+0x804807C8,Teams Mode flag (8-bit),"01 = on, 00 = off (free for all)"
+0x80480820,P1 Character Select?,Uses External ID
+0x8048082c,Has Something to do with above address,
+0x8049E6C8,START of Current Stage Info,
+0x804A1FD8,In-game debug settings,
+0x804C1FAC,Controller 1 Digital Data,Bit Flags: xxxx xxxx UDLR UDLR xxxS YXBA xLRZ UDRL
+0x804C1FB0,Controller 1 Digital Data (previous frame),Nibbles: [0] ? [1] ? [2]C-Stick [3] Control Stick [4] Start Button [5] Right-Side Buttons [6]Top-of-Controller Buttons [7] D-Pad
+0x804C1FC4,Controller 1 Analog Data,32-Bit Floats (-1 - 1) | Words: [0] Control Stick X [1] Control Stick Y [2] C-Stick X [3] C-Stick Y
+0x804C1FC8, ,Unsigned Bytes 0x00-0x8C | Bytes: [0] Left Shoulder [1] Right Shoulder
+0x804C1FCC,Controller 1 Analog Data,
+0x804D36A0,Hitbox color,
+0x804D36A4,Grab box color,
+0x804D36A8,,Careful i have write accessd
+0x804D36AC,Hurtbox color,
+0x804D36B0,,
+0x804D36B4,Invincible hurtbox color,
+0x804D36B8,,
+0x804D36BC,Intangible hurtbox color,
+0x804D36C0,,
+0x804D36C4,Shield collision bubble color,
+0x804D36C8,,
+0x804D36CC,Reflector collision bubble color,
+0x804D36D0,,
+0x804D36D4,,
+0x804D36D8,,
+0x804D36DC,Detection box color (i.e. Ganondorf/Falcon side-B),
+0x804D36E0,,
+0x804D36E4,,
+0x804D36E8,,
+0x804D36EC,,
+0x804D36F0,,
+0x804D36F4,,
+0x804D36F8,,
+0x804D36FC,,last color table entry
+0x804D4A08,Debug Level (32-bit),"0 = Master, 1 = No-Debug-Rom, 2 = Debug-Develop, 3 = Debug-Rom, 4 = Develop"
+0x804D5F90,Random seed,Changes every frame and is affected by player actions. For ALL random events.
+0x804d6554,Pointer to PICo.dat,NOTE: This does not point to the entire PICo.dat file. Instead it only points first offset located in the PICo Offsets sheet
+0x804D6554,Pointer to common attributes table from PlCo.dat,
+0x804D6730,KO star count (8-bit per player),=p1p2p3p4
+0x804d6ca4,Frames before inputs are taken on SSS,Byte
+0x804D6CAD,Stage select (16-bit),Indicates the stage selection on the stage select screen.
+0x804d6cf2,Frames before inputs are taken on CSS,Byte
+0x804D6D58,HUD toggle,"Toggle for displaying the game timer, player's percents, stock icons, etc. 00=ON, 01=OFF"
+0x804D7420,Global Power-on Count,Increments by 1 every frame. Never resets.
+0x804D8278,Editing does something weird to animation,(taken from AR code)
+0x804D9250,Fox/Falco horizontal momentum from shooting laser,Default is zero. Changing this value was very unstable.
+0x804D9254,Fox/Falco Laser offsets,Fox - vertical offset of entire laser. Falco - z-axis offset of laser ring graphic effect
+0x804D9258,Fox/Falco horizontal laser offset ,Negative = shoots from behind them
+0x804D9274,Fox/Falco Gun Size Multiplier,
+0x804D9278,Fox/Falco vertical momentum during Up-B,Default is zero. Making it too high/negative will affect being able to go in angles (above 1 or below -1?)
+0x804D927C,Fox/Falco Up-B charge animation speed multiplier,Default is 3f800000 = 1. Increase to make faster. Making it too fast will cause freezes.
+0x804D9280,Fox/Falco angle of pointed body while traveling in Up-B animation,
+0x804D92D4,Fox/Falco side-b speed modifier,
+0x804DE328,UI Camera FOV,"[float] Changes the camera angle along with HUD and menu elements, but does not issue any black coloring on textures"
+0x804DE338,,
+0x8065CC14,Current Menu?,"It updates to a different predictable value every time you switch menus, but it's written to by the OSAllocFromHeap function so setting a breakpoint here really doesn't work."
+0x80BDC5F4,Global width multiplier,1.0 by default. Written by some code at 0x803427C4.
+0x80c56618,Pointer to PICo.dat (repeat?),
+0x80C6BEF0, ,
+0x8111674C,P4 Cursor X Position,"Floating point ranging from -35 to 26 (If set outside of the boundaries, moves to closest point within boundaries)"
+0x81116750,P4 Cursor Y Position,"Floating point ranging from -22 to 25 (If set outside of the boundaries, moves to closest point within boundaries)"
+0x811176EC,P3 Cursor X Position,"Floating point ranging from -35 to 26 (If set outside of the boundaries, moves to closest point within boundaries)"
+0x811176F0,P3 Cursor Y Position,"Floating point ranging from -22 to 25 (If set outside of the boundaries, moves to closest point within boundaries)"
+0x8111826C,P2 Cursor X Position,"Floating point ranging from -35 to 26 (If set outside of the boundaries, moves to closest point within boundaries)"
+0x81118270,P2 Cursor Y Position,"Floating point ranging from -22 to 25 (If set outside of the boundaries, moves to closest point within boundaries)"
+0x81118DEC,P1 Cursor X Position,"Floating point ranging from -35 to 26 (If set outside of the boundaries, moves to closest point within boundaries)"
+0x81118DF0,P1 Cursor Y Position,"Floating point ranging from -22 to 25 (If set outside of the boundaries, moves to closest point within boundaries)"
+0x811ad6c0,Offset to RAM copy of character Plxx.dat file for P1?,"*usually*, this seems to change depending on the order that the .dat files were loaded into ram, so if p2 chooses a character first, then this will not be p1's .dat file."
