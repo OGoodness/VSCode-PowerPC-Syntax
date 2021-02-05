@@ -20,7 +20,6 @@ export function parseFile (file: string, allVariablePathMaps: VariablePathMap) {
     //TODO: Add macro finding
 
     while (n = variablePattern.exec(content)) {
-        console.log(n[2],n[3])
         const lineNr = linenumber(content, n[0]);
 
         const newItem: VariablePathDescription = {

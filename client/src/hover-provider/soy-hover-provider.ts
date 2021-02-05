@@ -13,7 +13,7 @@ export class SoyHoverProvider implements vscode.HoverProvider {
     }
 
     public provideHover (document: vscode.TextDocument, position: vscode.Position): vscode.Hover {
-        const hoveredWord = document.getText(document.getWordRangeAtPosition(position));
+        const hoveredWord = document.getText(document.getWordRangeAtPosition(position, /[\w\d.]+/));
         console.log('HOVER: ' + hoveredWord )
         if (/^0x[0-9a-fA-F]+$/g.test(hoveredWord)) {
             console.log(hoveredWord)
@@ -23,7 +23,7 @@ export class SoyHoverProvider implements vscode.HoverProvider {
             data.getDataOffset(hoveredWord, formattedText);
             data.getGlobalAddresses(hoveredWord, formattedText);
             return new vscode.Hover(formattedText);
-        }else if(data.getCommand(hoveredWord)){
+        }else if(data.getCommand(hoveredWord) !== data.UnknownCommand){
             let formattedText = new vscode.MarkdownString(`${hoveredWord}  \n`);
             data.setHover(hoveredWord, formattedText);
             return new vscode.Hover(formattedText);

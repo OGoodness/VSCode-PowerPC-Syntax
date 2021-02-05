@@ -16,11 +16,9 @@ export class SoyDefinitionProvider implements vscode.DefinitionProvider {
     }
 
     public async provideDefinition (document: vscode.TextDocument, position: vscode.Position): Promise<vscode.Location[]> {
-        console.log("definition provider")
         const lineText: string = document.lineAt(position.line).text;
         const filePath: string[] = lineText.match(/.include +['"`](.*)['"`]/);
         if (!this.variablePathMap || lineText.startsWith('#')) {
-            console.log("NULL HERE")
             return null;
         }
         if(filePath){
@@ -29,16 +27,13 @@ export class SoyDefinitionProvider implements vscode.DefinitionProvider {
             vscode.commands.executeCommand('vscode.open', vscode.Uri.file( vscode.workspace.workspaceFolders[0].uri.fsPath + '/' + filePath[1]));
             return null
         }
-        console.log("All the way here")
 
         return await this.definitionLocation(document, position)
             .then(definitionInfo => {
                 console.log(definitionInfo)
                 if (definitionInfo) {
-                    console.log("definitionExists")
                     return definitionInfo.map(info => createLocation(info));
                 }
-                console.log("Null return def prov")
 
                 return null;
             }, err => {

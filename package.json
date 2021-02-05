@@ -1,15 +1,15 @@
 {
-    "name": "soysyntaxchecker",
-    "displayName": "Soy file support (Google closure template)",
-    "description": "Full syntax support, Go To Definiton, Find References, snippets and more",
-    "author": "Roland Orosz",
+    "name": "powerpc-syntax",
+    "displayName": "PowerPC Syntax",
+    "description": "Full syntax support, Go To Definiton, Find References, snippets and more (Some features pending)",
+    "author": "Noah Fields",
     "license": "MIT",
-    "version": "3.25.1",
+    "version": "1.1.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Blodwynn/-VSCODE-.soy-language-server-client"
+        "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax"
     },
-    "publisher": "Blodwynn",
+    "publisher": "OGoodness",
     "categories": [
         "Programming Languages",
         "Snippets",
@@ -18,13 +18,13 @@
     ],
     "keywords": [
         "asm",
-        "closure template",
         "syntax",
-        "snippets",
-        "definition"
+        "definition",
+        "assembly",
+        "powerpc"
     ],
     "engines": {
-        "vscode": "^1.23.0"
+        "vscode": "^1.52.0"
     },
     "activationEvents": [
         "onLanguage:asm",
@@ -33,13 +33,13 @@
         "onCommand:soyfilesupport.showReadme"
     ],
     "main": "./client/out/extension",
-    "icon": "images/google_closure.png",
-    "homepage": "https://github.com/Blodwynn/-VSCODE-.soy-language-server-client",
+    "icon": "icon.png",
+    "homepage": "https://github.com/OGoodness/VSCode-PowerPC-Syntax",
     "bugs": {
-        "url": "https://github.com/Blodwynn/-VSCODE-.soy-language-server-client/issues"
+        "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax/issues"
     },
     "maintainers": [
-        "Roland Orosz"
+        "Noah Fields"
     ],
     "contributes": {
         "languages": [

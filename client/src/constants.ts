@@ -13,7 +13,7 @@ export enum Commands {
 }
 
 export enum ExtensionData {
-    ExtensionIdentifier = 'OGoodness.powerpc'
+    ExtensionIdentifier = 'ogoodness.powerpc-syntax'
 }
 
 export enum TriggerCharacters {

@@ -16,7 +16,7 @@ export class VersionManager {
     }
 
     public getCurrentVersion (): string {
-        // return this.extension.packageJSON.version;
+        return this.extension.packageJSON.version;
         return `1`;
     }
 

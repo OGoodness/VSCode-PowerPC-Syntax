@@ -444,10 +444,14 @@ export const Commands: { [command: string]: Command } = {
   "xoris": {
     "mnemonics": "xoris",
     "description": "XOR Immediate Shifted"
+  },
+  "bl": {
+    "mnemonics": "bl label",
+    "description": "Branch and link to label (call function, return with **blr**"
   }
 }
 
-export const getCommand(value: string){
+export const getCommand = (value: string) =>{
   return Commands[value] || UnknownCommand
 }
 

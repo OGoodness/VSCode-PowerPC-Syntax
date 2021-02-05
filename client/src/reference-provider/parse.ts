@@ -11,7 +11,6 @@ function isIncluded (templateName: string, file: string, line: number, allCallMa
     const templatePathDescription: VariablePathDescription[] = allCallMaps[templateName];
 
     if (templatePathDescription) {
-        console.log(templatePathDescription)
         const filtered = templatePathDescription.filter(
             (templateData: VariablePathDescription) => templateData.line === line && templateData.path === file
         );
@@ -61,7 +60,6 @@ export function parseFile (file: string, allCallMaps: VariablePathMap) {
     // console.log(JSON.stringify(allCallMaps))
 
     while (m = callPattern.exec(documentText)) {
-        console.log(m)
         const lineNr = linenumber(documentText, escapeRegExp(m[0]));
         const template = m[0];
 
