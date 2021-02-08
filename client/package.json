@@ -7,7 +7,7 @@
 	"publisher": "vscode",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Blodwynn/-VSCODE-.soy-language-server-client"
+		"url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax"
 	},
 	"engines": {
 		"vscode": "^1.25.0"

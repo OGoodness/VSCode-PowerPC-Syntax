@@ -1,4 +1,11 @@
 # PowerPC Syntax - What's new?
+# [1.1.3] - 2/8/2021
+- ReEnabled  `ctrl+click` on files, fixed issue where it would automatically go to file when you hovered over it.
+- Updated to include auto completion when writing variable or command names
+- Will now show definitions of commands when you hover over them (Most commands missing definitions currently :) )
+- When typing `.macro` a `.endm` will automatically be appended.
+- Package should be smaller.
+
 # [1.1.2] - 2/6/2021
 - Temporary disable of `ctrl+click` on files
 # [1.1.0] - 2/5/2021

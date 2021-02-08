@@ -2,8 +2,6 @@ import linenumber = require('linenumber');
 // const regexDefinitions = require('.');
 import fs = require('fs');
 import { VariablePathMap, VariablePathDescription } from '../interfaces';
-let macros: {} ={}
-let variables: {} ={}
 
 function insertElementWithKey (variableName: string, element: VariablePathDescription, allVariablePathMaps: VariablePathMap): void {
     if (Array.isArray(allVariablePathMaps[variableName])) {
@@ -17,7 +15,6 @@ export function parseFile (file: string, allVariablePathMaps: VariablePathMap) {
     const variablePattern: RegExp = /\.(set|macro)\s+([\w\d._]+)[\w\d._, #]*|^ *([a-z0-9_-]+):/gim;
     const content: string = fs.readFileSync(file, 'utf8');
     let n: RegExpExecArray;
-    //TODO: Add macro finding
 
     while (n = variablePattern.exec(content)) {
         const lineNr = linenumber(content, n[0]);

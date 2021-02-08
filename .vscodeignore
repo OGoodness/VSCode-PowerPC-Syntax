@@ -16,3 +16,16 @@ tsconfig.base.json
 tsconfig.json
 tslint.json
 examples/*
+
+**/*.ts
+**/*.map
+**/tsconfig.json
+**/tsconfig.base.json
+contributing.md
+.travis.yml
+!client/node_modules/vscode-jsonrpc/**
+!client/node_modules/vscode-languageclient/**
+!client/node_modules/vscode-languageserver-protocol/**
+!client/node_modules/vscode-languageserver-types/**
+!client/node_modules/semver/**
+
