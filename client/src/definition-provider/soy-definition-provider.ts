@@ -22,6 +22,7 @@ export class SoyDefinitionProvider implements vscode.DefinitionProvider {
             return null;
         }
         if(filePath){
+            //TODO: Make more elegant 
             return [new vscode.Location(vscode.Uri.file( vscode.workspace.workspaceFolders[0].uri.fsPath + '/' + filePath[1]), new vscode.Position(0, 0))]
         }
 

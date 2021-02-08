@@ -1,15 +1,9 @@
 import vscode = require('vscode');
-import { SoyDefinitionProvider } from '../definition-provider/soy-definition-provider';
-import { SoyReferenceProvider } from '../reference-provider/soy-reference-provider';
 import * as data from "../data";
 
 export class SoyHoverProvider implements vscode.HoverProvider {
-    private soyDefinitionProvider: SoyDefinitionProvider;
-    private soyReferenceProvider: SoyReferenceProvider;
 
-    constructor (soyDefinitionProvider, soyReferenceProvider) {
-        this.soyDefinitionProvider = soyDefinitionProvider;
-        this.soyReferenceProvider = soyReferenceProvider;
+    constructor () {
     }
 
     public provideHover (document: vscode.TextDocument, position: vscode.Position): vscode.Hover {
@@ -28,27 +22,10 @@ export class SoyHoverProvider implements vscode.HoverProvider {
             data.setHover(hoveredWord, formattedText);
             return new vscode.Hover(formattedText);
         }
+        // const definitionHoverItem: string = this.createSentence(definitions && definitions.length, 'definition');
+        // const referenceHoverItem: string = this.createSentence(references && references.length, 'reference');
+        //  new vscode.Hover([definitionHoverItem, referenceHoverItem]);
         return null
-        // return new Promise<vscode.Hover>(resolve => {
-        //     const wordRange: vscode.Range = document.getWordRangeAtPosition(position, /(del)?(call|template)\s+[\w\d.]+/);
-            
-        //     if (wordRange) {
-        //         Promise.all([
-        //             this.soyDefinitionProvider.provideDefinition(document, position),
-        //             this.soyReferenceProvider.provideReferences(document, position)
-        //         ]).then(templateInformation => {
-        //             const definitions: vscode.Location[] = templateInformation[0];
-        //             const references: vscode.Location[] = templateInformation[1];
-
-        //             const definitionHoverItem: string = this.createSentence(definitions && definitions.length, 'definition');
-        //             const referenceHoverItem: string = this.createSentence(references && references.length, 'reference');
-
-        //             resolve(new vscode.Hover([definitionHoverItem, referenceHoverItem]));
-        //         });
-        //     } else {
-        //         resolve(null);
-        //     }
-        // });
     }
 
     private createSentence (numberOfItems: number, itemName: string): string {

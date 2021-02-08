@@ -18,7 +18,6 @@ export enum ExtensionData {
 
 export enum TriggerCharacters {
     Dot = '.',
-    LeftBrace = '{'
 }
 
 export enum UpdateNotificationItem {

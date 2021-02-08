@@ -47,9 +47,7 @@
                 "id": "asm",
                 "aliases": [
                     "asm",
-                    "google closure",
-                    "closure template",
-                    "google closure template",
+                    "assembly",
                     ".asm"
                 ],
                 "extensions": [

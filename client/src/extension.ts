@@ -15,7 +15,7 @@ import { Commands, TriggerCharacters, UpdateNotificationItem } from './constants
 
 const asmDefinitionProvider = new SoyDefinitionProvider();
 const asmReferenceProvider = new SoyReferenceProvider();
-const asmHoverProvider = new SoyHoverProvider(asmDefinitionProvider, asmReferenceProvider);
+const asmHoverProvider = new SoyHoverProvider();
 const asmDocumentSymbolProvider = new SoyDocumentSymbolProvider();
 const asmCompletionItemProvider = new SoyCompletionItemProvider(asmDefinitionProvider);
 let client: LanguageClient;
@@ -60,7 +60,7 @@ function registerProviders (context: ExtensionContext): void {
     context.subscriptions.push(vscode.languages.registerHoverProvider(asmDocFilter, asmHoverProvider));
     context.subscriptions.push(vscode.languages.registerDocumentSymbolProvider(asmDocFilter, asmDocumentSymbolProvider));
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(
-        asmDocFilter, asmCompletionItemProvider, TriggerCharacters.Dot, TriggerCharacters.LeftBrace
+        asmDocFilter, asmCompletionItemProvider, TriggerCharacters.Dot, TriggerCharacters.Dot
     ));
 }
 

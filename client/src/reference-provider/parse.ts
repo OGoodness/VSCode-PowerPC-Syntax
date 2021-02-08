@@ -52,12 +52,7 @@ export function parseFile (file: string, allCallMaps: VariablePathMap) {
     const documentText: string = fs.readFileSync(file, 'utf8');
     const namespace: string = getIncludes(documentText);
     const callPattern: RegExp = /\{(?:del)?call ([\w\d.]+)[^\w\d.].*/gm;
-    // const filePattern: RegExp = /\{namespace ([\w\d.]+)/;
-    // const labelPattern: RegExp = /b[a-z] +([A-Z_]+)/;
-    // const variablePattern: RegExp = /\{(del)?template ([\w\d.]+)[^\}]*\}/gm;
-    // const functionPattern: RegExp = new RegExp('');
     let m: RegExpExecArray;
-    // console.log(JSON.stringify(allCallMaps))
 
     while (m = callPattern.exec(documentText)) {
         const lineNr = linenumber(documentText, escapeRegExp(m[0]));

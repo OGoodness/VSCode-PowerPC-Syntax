@@ -15,3 +15,4 @@ appveyor.yml
 tsconfig.base.json
 tsconfig.json
 tslint.json
+examples/*
