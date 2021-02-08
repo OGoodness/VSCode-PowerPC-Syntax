@@ -22,10 +22,7 @@ export class SoyDefinitionProvider implements vscode.DefinitionProvider {
             return null;
         }
         if(filePath){
-            console.log(filePath)
-            console.log(vscode.workspace.workspaceFolders)
-            vscode.commands.executeCommand('vscode.open', vscode.Uri.file( vscode.workspace.workspaceFolders[0].uri.fsPath + '/' + filePath[1]));
-            return null
+            return [new vscode.Location(vscode.Uri.file( vscode.workspace.workspaceFolders[0].uri.fsPath + '/' + filePath[1]), new vscode.Position(0, 0))]
         }
 
         return await this.definitionLocation(document, position)

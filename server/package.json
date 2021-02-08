@@ -12,7 +12,6 @@
 		"url": "https://github.com/Blodwynn/-VSCODE-.soy-language-server-client"
 	},
 	"dependencies": {
-		"vscode-languageserver": "^4.1.3"
 	},
 	"scripts": {}
 }

@@ -4,7 +4,7 @@
     "description": "Full syntax support, Go To Definiton, Find References, snippets and more (Some features pending)",
     "author": "Noah Fields",
     "license": "MIT",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax"
@@ -53,6 +53,7 @@
                     ".asm"
                 ],
                 "extensions": [
+                    ".s",
                     ".asm"
                 ],
                 "configuration": "./language-configuration.json"
@@ -121,7 +122,10 @@
         ]
     },
     "scripts": {
-  
+        "compile:client": "tsc -p ./client/tsconfig.json",
+        "compile:server": "tsc -p ./server/tsconfig.json",
+        "watch:client": "tsc -w -p ./client/tsconfig.json",
+        "watch:server": "tsc -w -p ./server/tsconfig.json"
     },
     "devDependencies": {
         "@types/mocha": "^5.2.7",

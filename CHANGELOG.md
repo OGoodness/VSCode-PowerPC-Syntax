@@ -1,6 +1,7 @@
 # PowerPC Syntax - What's new?
-
-### [1.1.0] - 2/5/2021
+# [1.1.2] - 2/6/2021
+- Temporary disable of `ctrl+click` on files
+# [1.1.0] - 2/5/2021
 - "Go To Definition" support (or `ctrl+click`) for **Labels, Variables, and Macros***
 - Ability to go to file through "Go To Definition" (or `ctrl+click`)
 - Hover over PowerPC commands to see a description of their use.
