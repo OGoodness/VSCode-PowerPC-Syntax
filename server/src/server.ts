@@ -2,19 +2,38 @@
 
 import { ISoyConfigSettings, IErrorItem } from './interfaces';
 import patterns from './patterns';
+import * as path from 'path'
+import * as fs from 'fs'
+import {URI} from 'vscode-uri'
 import {
     createConnection,
     TextDocuments,
-    TextDocument,
+    Connection,
     Diagnostic,
     DiagnosticSeverity,
+    Hover,
+    HoverParams,
     ProposedFeatures,
+    CodeActionKind,
+    CompletionItem,
+    TextDocumentPositionParams,
     InitializeParams,
-    DidChangeConfigurationNotification
-} from 'vscode-languageserver';
+    DidChangeConfigurationNotification,
+    TextDocumentSyncKind,
+    TextDocumentChangeEvent
+} from 'vscode-languageserver/node';
+import {TextDocument} from 'vscode-languageserver-textdocument'
+import {CompletionItemProvider} from './completion-item-provider/completion-item-provider'
+import {HoverProvider} from './hover-provider/hover-provider'
+import {DefinitionProvider} from './definition-provider/definition-provider'
 
-const connection = createConnection(ProposedFeatures.all);
-const documents: TextDocuments = new TextDocuments();
+const definitionProvider = new DefinitionProvider()
+const completionProvider = new CompletionItemProvider(definitionProvider)
+const hoverProvider = new HoverProvider()
+
+
+const connection: Connection = createConnection(ProposedFeatures.all)
+const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 let hasConfigurationCapability: boolean = false;
 let hasWorkspaceFolderCapability: boolean = false;
 
@@ -30,10 +49,52 @@ connection.onInitialize((params: InitializeParams) => {
 
     return {
         capabilities: {
-            textDocumentSync: documents.syncKind,
-            // either this is true and use the onDefinition
-            // or just have the subscription in the extension
-            definitionProvider: false
+            textDocumentSync: {
+				openClose: true,
+				change: TextDocumentSyncKind.Full
+            },
+            hoverProvider: true,
+            completionProvider: {
+                resolveProvider: false,
+            },
+            signatureHelpProvider: {
+            },
+            definitionProvider: true,
+            referencesProvider: { workDoneProgress: true },
+            documentHighlightProvider: true,
+            documentSymbolProvider: true,
+            workspaceSymbolProvider: true,
+            codeActionProvider: {
+                codeActionKinds: [CodeActionKind.Refactor, CodeActionKind.Source, CodeActionKind.SourceOrganizeImports],
+                resolveProvider: true
+            },
+            codeLensProvider: {
+                resolveProvider: true
+            },
+            documentFormattingProvider: true,
+            documentRangeFormattingProvider: true,
+            // documentOnTypeFormattingProvider: {
+            //     firstTriggerCharacter: ';',
+            //     moreTriggerCharacter: ['}', '\n']
+            // },
+            renameProvider: true,
+            workspace: {
+                workspaceFolders: {
+                    supported: true,
+                    changeNotifications: true
+                }
+            },
+            implementationProvider: {
+                id: "AStaticImplementationID",
+                documentSelector: ['asm', 's']
+            },
+            typeDefinitionProvider: true,
+            declarationProvider: { workDoneProgress: true },
+            executeCommandProvider: {
+                commands: ['testbed.helloWorld']
+            },
+            callHierarchyProvider: true,
+            selectionRangeProvider: { workDoneProgress: true }
         }
     };
 });
@@ -47,9 +108,10 @@ connection.onInitialized(() => {
         );
     }
     if (hasWorkspaceFolderCapability) {
-        // connection.workspace.onDidChangeWorkspaceFolders(_event => {
-        //     connection.console.log('Workspace folder change event received.');
-        // });
+        connection.workspace.onDidChangeWorkspaceFolders(_event => {
+            connection.console.log('Workspace folder change event received.');
+        });
+        
     }
 });
 
@@ -72,7 +134,7 @@ connection.onDidChangeConfiguration(change => {
         ) as ISoyConfigSettings;
     }
 
-    documents.all().forEach(validateSoyDocument);
+    documents.all().forEach(validateAsmDocument);
 });
 
 function getDocumentSettings (resource: string): Thenable<ISoyConfigSettings> {
@@ -92,15 +154,14 @@ function getDocumentSettings (resource: string): Thenable<ISoyConfigSettings> {
 
 documents.onDidClose(e => {
     documentSettings.delete(e.document.uri);
+    connection.sendDiagnostics({ uri: e.document.uri, diagnostics: [] });
 });
 
-documents.onDidChangeContent(change => {
-    validateSoyDocument(change.document);
+documents.onDidChangeContent((event: TextDocumentChangeEvent<TextDocument>) => {
+
+    validateAsmDocument(event.document);
 });
 
-documents.onDidClose(change => {
-    connection.sendDiagnostics({ uri: change.document.uri, diagnostics: [] });
-});
 
 function validateWithPattern (errorItem: IErrorItem, text: string, textDocument: TextDocument, severity: DiagnosticSeverity): Diagnostic[] {
     const pattern: RegExp = errorItem.pattern;
@@ -135,7 +196,7 @@ function validatePatterns (errorItems: any[], text: string, textDocument: TextDo
     return diagnosticResults;
 }
 
-async function validateSoyDocument (textDocument: TextDocument): Promise<void> {
+async function validateAsmDocument (textDocument: TextDocument): Promise<void> {
     const settings = await getDocumentSettings(textDocument.uri);
     const text = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
@@ -158,6 +219,45 @@ async function validateSoyDocument (textDocument: TextDocument): Promise<void> {
 
     connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
+
+
+connection.onHover((hoverParams: HoverParams): Hover => {
+    // console.log(hoverParams)
+    let uri = hoverParams.textDocument.uri
+    let languageId = path.extname(uri).slice(1).toLowerCase()
+	let document = null
+    try {
+        let text = (fs.readFileSync(URI.parse(uri).fsPath)).toString('utf8')
+        
+        // Very low resource usage for creating one document.
+        document = TextDocument.create(uri, languageId, 1, text)
+    }
+    catch (err) {
+        console.error(err)
+    }
+    return hoverProvider.provideHover(document, hoverParams.position)
+})
+
+// This handler provides the initial list of the completion items.
+connection.onCompletion(
+	(positionParams: TextDocumentPositionParams): CompletionItem[] => {
+        let documentIdentifier = positionParams.textDocument
+        let position = positionParams.position
+        let document = documents.get(documentIdentifier.uri)
+        
+        if (!document) {
+			return null
+		}
+
+		// The pass parameter contains the position of the text document in
+		// which code complete got requested. For the example we ignore this
+        // info and always provide the same completion items.
+        console.log("Inside Completion")
+        console.log(positionParams)
+		return completionProvider.provideCompletionItems(document, position)
+	}
+);
+
 
 // connection.onDidChangeWatchedFiles(_change => {
 //     connection.console.log('We received an file change event');

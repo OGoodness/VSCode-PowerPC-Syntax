@@ -12,6 +12,7 @@ import { SoyCompletionItemProvider } from './completion-item-provider/soy-comple
 import { getAsmFiles, getAsmFile, getChangeLogPath, getReadmePath } from './files';
 import { VersionManager } from './VersionManager';
 import { Commands, TriggerCharacters, UpdateNotificationItem } from './constants';
+import { Connection } from 'vscode-languageserver';
 
 const asmDefinitionProvider = new SoyDefinitionProvider();
 const asmReferenceProvider = new SoyReferenceProvider();
@@ -63,6 +64,13 @@ function registerProviders (context: ExtensionContext): void {
         asmDocFilter, asmCompletionItemProvider, TriggerCharacters.Dot, TriggerCharacters.Dot
     ));
 }
+
+function registerCustomServerProviders (context: ExtensionContext, client: LanguageClient): void {
+    // context.subscriptions.push(vscode.languages.registerHoverProvider(asmDocFilter, vscode));
+    client.sendRequest
+}
+
+
 
 function registerCommands (context: ExtensionContext): void {
     context.subscriptions.push(vscode.commands.registerCommand(
@@ -135,20 +143,21 @@ export function activate (context: ExtensionContext): void {
     showNewChanges(versionManager.getCurrentVersion(), versionManager.getSavedVersion());
     versionManager.UpdateSavedVersion();
 
-    registerProviders(context);
-    registerCommands(context);
-    initializeProviders();
+    // registerProviders(context);
+    // registerCommands(context);
+    // initializeProviders();
 
-    vscode.workspace.onDidSaveTextDocument(e => {
-        getAsmFile(e.uri.fsPath)
-            .then(file => {
-                const filePath: string = file[0] as string;
+    // vscode.workspace.onDidSaveTextDocument(e => {
+    //     getAsmFile(e.uri.fsPath)
+    //         .then(file => {
+    //             const filePath: string = file[0] as string;
 
-                asmDefinitionProvider.parseSingleFile(filePath);
-                asmReferenceProvider.parseSingleFile(filePath);
-            });
-    }, null, context.subscriptions);
-
+    //             asmDefinitionProvider.parseSingleFile(filePath);
+    //             asmReferenceProvider.parseSingleFile(filePath);
+    //         });
+    // }, null, context.subscriptions);
+    // registerCustomServerProviders(context, client)
+    
     client.start();
 }
 

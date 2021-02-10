@@ -7,17 +7,6 @@ export function normalizeAliasTemplate (alias: string, template: string): string
     return `${alias}${truncatedTemplatePath}`;
 }
 
-export function getNamespace (documentText: string): string {
-    console.log("Get Namespace")
-    const namespacePattern: RegExp = /\{namespace\s*([\w\d.]+)/;
-    const namespaceMatch = namespacePattern.exec(documentText);
-
-    if (namespaceMatch) {
-        return namespaceMatch[1];
-    }
-
-    return null;
-}
 
 export function getIncludes (documentText: string): string {
     // console.log("Get Includes")
