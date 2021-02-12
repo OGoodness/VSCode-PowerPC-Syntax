@@ -1,0 +1,17 @@
+{
+	"name": "asm-language-server",
+	"description": "ASM Language Server.",
+	"version": "1.0.0",
+	"author": "Microsoft Corporation",
+	"license": "MIT",
+	"engines": {
+		"node": "*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax"
+	},
+	"dependencies": {
+	},
+	"scripts": {}
+}

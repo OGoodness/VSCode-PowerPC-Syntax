@@ -1,32 +1,136 @@
 {
     "name": "powerpc-syntax",
     "displayName": "PowerPC Syntax",
-    "description": "Language support for POWER/ppc/powerpc assembly.",
-    "repository": "https://github.com/OGoodness/VSCode-PowerPC-Syntax",
+    "description": "Full syntax support, Go To Definiton, Find References, snippets and more (Some features pending)",
+    "author": "Noah Fields",
     "license": "MIT",
-    "publisher": "OGoodness",
-    "version": "0.0.1",
-    "icon": "example.png",
-    "bugs": {
-        "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax/issues"
+    "version": "1.1.3",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax"
     },
+    "publisher": "OGoodness",
+    "categories": [
+        "Programming Languages",
+        "Snippets",
+        "Themes",
+        "Linters"
+    ],
+    "keywords": [
+        "asm",
+        "syntax",
+        "definition",
+        "assembly",
+        "powerpc"
+    ],
     "engines": {
         "vscode": "^1.52.0"
     },
-    "categories": [
-        "Programming Languages"
+    "activationEvents": [
+        "onLanguage:asm",
+        "onCommand:soyfilesupport.reparse.workspace",
+        "onCommand:soyfilesupport.showExtensionChanges",
+        "onCommand:soyfilesupport.showReadme"
+    ],
+    "main": "./client/out/extension",
+    "icon": "images/icon.png",
+    "homepage": "https://github.com/OGoodness/VSCode-PowerPC-Syntax",
+    "bugs": {
+        "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax/issues"
+    },
+    "maintainers": [
+        "Noah Fields"
     ],
     "contributes": {
-        "languages": [{
-            "id": "asm",
-            "aliases": ["PowerPC", "asm"],
-            "extensions": [".asm",".s"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "asm",
-            "scopeName": "source.asm",
-            "path": "./syntaxes/asm.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "asm",
+                "aliases": [
+                    "asm",
+                    "assembly",
+                    ".asm"
+                ],
+                "extensions": [
+                    ".s",
+                    ".asm"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Soy file support",
+            "properties": {
+                "asmLanguageServer.ignoreTodo": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Ignore TODO comments in documents."
+                },
+                "asmLanguageServer.ignoreBreakingChange": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Ignore breaking change comments in documents."
+                },
+                "asmLanguageServer.ignoreErrors": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Ignore all errors in documents."
+                },
+                "asmLanguageServer.disallowAllowemptydefault": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Disallows allowemptydefault in delcalls. It will be marked as an Error."
+                },
+                "asmLanguageServer.excludePaths": {
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Configure glob patterns for excluding files and folders from being indexed for template definitions."
+                }
+            }
+        },
+        "snippets": [
+            {
+                "language": "asm",
+                "path": "./snippets/soy-snippets.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "asm",
+                "scopeName": "source.asm",
+                "path": "./syntax/asm.tmLanguage.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "soyfilesupport.reparse.workspace",
+                "title": "Soy File Support: Reparse workspace"
+            },
+            {
+                "command": "soyfilesupport.showExtensionChanges",
+                "title": "Soy File Support: Show extension changes"
+            },
+            {
+                "command": "soyfilesupport.about",
+                "title": "Soy File Support: About"
+            }
+        ]
+    },
+    "scripts": {
+        "compile:client": "tsc -p ./client/tsconfig.json",
+        "compile:server": "tsc -p ./server/tsconfig.json",
+        "watch:client": "tsc -w -p ./client/tsconfig.json",
+        "watch:server": "tsc -w -p ./server/tsconfig.json"
+    },
+    "devDependencies": {
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^8.10.60",
+        "typescript": "4.1.3"
+    },
+    "dependencies": {
+        "vscode-languageserver": "^7.0.0"
     }
 }
