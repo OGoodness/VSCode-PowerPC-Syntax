@@ -28,16 +28,4 @@ export class SoyHoverProvider implements vscode.HoverProvider {
         return null
     }
 
-    private createSentence (numberOfItems: number, itemName: string): string {
-        //HERE Generate From language info
-        const plural = `${itemName}s`;
-
-        if (!numberOfItems) {
-            return `No ${plural} found.`;
-        } else if (numberOfItems === 1) {
-            return `1 ${itemName} is available.`;
-        } else {
-            return `${numberOfItems} ${plural} are available.`;
-        }
-    }
 }

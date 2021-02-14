@@ -3,7 +3,7 @@
 import * as path from 'path';
 import vscode = require('vscode');
 import { workspace, ExtensionContext, Progress, ProgressLocation, CancellationToken } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
 import { SoyDefinitionProvider } from './definition-provider/soy-definition-provider';
 import { SoyReferenceProvider } from './reference-provider/soy-reference-provider';
 import { SoyHoverProvider } from './hover-provider/soy-hover-provider';
@@ -44,6 +44,11 @@ function getSetupExtensionClient (context: ExtensionContext): LanguageClient {
         ],
         synchronize: {
             fileEvents: workspace.createFileSystemWatcher('**/.clientrc')
+        },
+        middleware: {
+            // provideHover: (document: vscode.TextDocument, position: vscode.Position) => {
+            //     return new vscode.Hover('a')
+            // }
         }
     };
 
@@ -56,13 +61,13 @@ function getSetupExtensionClient (context: ExtensionContext): LanguageClient {
 }
 
 function registerProviders (context: ExtensionContext): void {
-    context.subscriptions.push(vscode.languages.registerDefinitionProvider(asmDocFilter, asmDefinitionProvider));
-    context.subscriptions.push(vscode.languages.registerReferenceProvider(asmDocFilter, asmReferenceProvider));
-    context.subscriptions.push(vscode.languages.registerHoverProvider(asmDocFilter, asmHoverProvider));
+    // context.subscriptions.push(vscode.languages.registerDefinitionProvider(asmDocFilter, asmDefinitionProvider));
+    // context.subscriptions.push(vscode.languages.registerReferenceProvider(asmDocFilter, asmReferenceProvider));
+    // context.subscriptions.push(vscode.languages.registerHoverProvider(asmDocFilter, asmHoverProvider));
     context.subscriptions.push(vscode.languages.registerDocumentSymbolProvider(asmDocFilter, asmDocumentSymbolProvider));
-    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(
-        asmDocFilter, asmCompletionItemProvider, TriggerCharacters.Dot, TriggerCharacters.Dot
-    ));
+    // context.subscriptions.push(vscode.languages.registerCompletionItemProvider(
+    //     asmDocFilter, asmCompletionItemProvider, TriggerCharacters.Dot, TriggerCharacters.Dot
+    // ));
 }
 
 function registerCustomServerProviders (context: ExtensionContext, client: LanguageClient): void {
@@ -72,49 +77,49 @@ function registerCustomServerProviders (context: ExtensionContext, client: Langu
 
 
 
-function registerCommands (context: ExtensionContext): void {
-    context.subscriptions.push(vscode.commands.registerCommand(
-        Commands.ReparseWorkSpace,
-        () => initializeProviders()
-    ));
-    context.subscriptions.push(vscode.commands.registerCommand(
-        Commands.ShowExtensionChanges,
-        () => showExtensionChanges()
-    ));
-    context.subscriptions.push(vscode.commands.registerCommand(
-        Commands.About,
-        () => showReadme()
-    ));
-}
+// function registerCommands (context: ExtensionContext): void {
+//     context.subscriptions.push(vscode.commands.registerCommand(
+//         Commands.ReparseWorkSpace,
+//         () => initializeProviders()
+//     ));
+//     context.subscriptions.push(vscode.commands.registerCommand(
+//         Commands.ShowExtensionChanges,
+//         () => showExtensionChanges()
+//     ));
+//     context.subscriptions.push(vscode.commands.registerCommand(
+//         Commands.About,
+//         () => showReadme()
+//     ));
+// }
 
-function initializeProviders (): void {
-    vscode.window.withProgress({
-        location: ProgressLocation.Notification,
-        title: 'ASM File Support',
-        cancellable: false
-    }, (progress: Progress<{increment?: number, message?: string}>, token: CancellationToken) => {
-        progress.report({ message: 'Parsing Workspace...' });
+// function initializeProviders (): void {
+//     vscode.window.withProgress({
+//         location: ProgressLocation.Notification,
+//         title: 'ASM File Support',
+//         cancellable: false
+//     }, (progress: Progress<{increment?: number, message?: string}>, token: CancellationToken) => {
+//         progress.report({ message: 'Parsing Workspace...' });
 
-        return new Promise((resolve, reject) => {
-            if (token.isCancellationRequested) {
-                reject();
-            }
+//         return new Promise((resolve, reject) => {
+//             if (token.isCancellationRequested) {
+//                 reject();
+//             }
 
-            getAsmFiles()
-                .then(wsFolders => {
-                    asmDefinitionProvider.parseWorkspaceFolders(wsFolders);
-                    asmReferenceProvider.parseWorkspaceFolders(wsFolders);
+//             getAsmFiles()
+//                 .then(wsFolders => {
+//                     asmDefinitionProvider.parseWorkspaceFolders(wsFolders);
+//                     asmReferenceProvider.parseWorkspaceFolders(wsFolders);
 
-                    resolve(1);
-                });
-        });
-    });
-}
+//                     resolve(1);
+//                 });
+//         });
+//     });
+// }
 
-function showReadme () {
-    const readmePath: string = getReadmePath();
-    vscode.commands.executeCommand(Commands.ShowMarkDownPreview, vscode.Uri.file(readmePath));
-}
+// function showReadme () {
+//     const readmePath: string = getReadmePath();
+//     vscode.commands.executeCommand(Commands.ShowMarkDownPreview, vscode.Uri.file(readmePath));
+// }
 
 function showExtensionChanges (): void {
     const changeLogPath: string = getChangeLogPath();
@@ -128,8 +133,8 @@ function showNewChanges (currentVersion: string, previousVersion: string): void 
             UpdateNotificationItem.SeeUpdates,
             UpdateNotificationItem.Dismiss
         )
-        .then(choosenOption => {
-            if (choosenOption === UpdateNotificationItem.SeeUpdates) {
+        .then(chosenOption => {
+            if (chosenOption === UpdateNotificationItem.SeeUpdates) {
                 showExtensionChanges();
             }
         });
@@ -143,7 +148,7 @@ export function activate (context: ExtensionContext): void {
     showNewChanges(versionManager.getCurrentVersion(), versionManager.getSavedVersion());
     versionManager.UpdateSavedVersion();
 
-    // registerProviders(context);
+    registerProviders(context);
     // registerCommands(context);
     // initializeProviders();
 

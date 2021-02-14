@@ -1,6 +1,6 @@
 import { VariablePathMap, VariablePathDescription } from '../interfaces';
 import { parseFiles, parseFile } from './parse';
-import { createLocation, normalizeAliasTemplate, getMatchingVariable, getLineRange } from '../template-utils';
+import { createLocation, normalizeAliasTemplate, getMatchingVariable, getLineRange, getClosestWordRange } from '../template-utils';
 import {Location, Range, Position} from 'vscode-languageserver/node'
 import {TextDocument} from 'vscode-languageserver-textdocument'
 import { URI } from 'vscode-uri'
@@ -17,8 +17,8 @@ export class DefinitionProvider {
         parseFile(documentPath, this.variablePathMap);
     }
 
-    public async provideDefinition (document: TextDocument, position: Position): Promise<Location[]> {
-        const lineText: string = document.getText(getLineRange(position))
+    public provideDefinition (document: TextDocument, position: Position): Location[] {
+        const lineText: string = document.getText(getClosestWordRange(document, position))
         console.log("provideDefinition")
         console.log(lineText)
         const filePath: string[] = lineText.match(/.include +['"`](.*)['"`]/);
@@ -30,22 +30,14 @@ export class DefinitionProvider {
             // workspace.workspaceFolders[0].uri.fsPath + '
             return [Location.create(URI.file( '/' + filePath[1]).toString(), Range.create(0, 0, 0, 0))]
         }
+        let definitionInfo = this.definitionLocation(document, position)
+        console.log("definitionInfo")
+        console.log(definitionInfo)
+        if (definitionInfo) {
+            return definitionInfo.map(info => createLocation(info));
+        }
+        return null;
 
-        return await this.definitionLocation(document, position)
-            .then(definitionInfo => {
-                console.log("definitionInfo")
-                console.log(definitionInfo)
-                if (definitionInfo) {
-                    return definitionInfo.map(info => createLocation(info));
-                }
-
-                return null;
-            }, err => {
-                if (err) {
-                    return err;
-                }
-                return null;
-            });
     }
 
     public getDefinitionList (): VariablePathMap {
@@ -60,15 +52,15 @@ export class DefinitionProvider {
         });
     }
 
-    private definitionLocation (document: TextDocument, position: Position): Promise<VariablePathDescription[]> {
-        const variableToSearchFor: string = document.getText(getLineRange(position))
+    private definitionLocation (document: TextDocument, position: Position): VariablePathDescription[] {
+        const variableToSearchFor: string = document.getText(getClosestWordRange(document, position))
         const variableData: VariablePathDescription[] = this.getVariableDescription(variableToSearchFor, document);
         console.log(variableData, variableToSearchFor)
         if (!variableToSearchFor) {
-            return Promise.resolve(null);
+            return null;
         }
 
-        return Promise.resolve(variableData);
+        return variableData;
     }
 
     private getVariableDescription (variableToSearchFor: string, document: TextDocument): VariablePathDescription[]  {

@@ -1,7 +1,7 @@
-import {Hover, Position} from 'vscode-languageserver'
+import {Hover, Position, Range} from 'vscode-languageserver/node'
 import {TextDocument} from 'vscode-languageserver-textdocument'
 import * as data from "../data";
-import { getLineRange } from '../template-utils';
+import { getClosestWordRange } from '../template-utils';
 
 
 export class HoverProvider {
@@ -10,10 +10,8 @@ export class HoverProvider {
     }
 
     public provideHover (document: TextDocument, position: Position): Hover {
-        console.log("Hover Start")
-        // console.log(document.getText(getLineRange(position)).match(/[\w\d.]+/))
-        console.log("Hover Start")
-        const hoveredWord = document.getText(getLineRange(position)).match(/[\w\d.]+/)[0];
+        let result: Range = getClosestWordRange(document, position)
+        const hoveredWord = document.getText(result)
         console.log('HOVER: ' + hoveredWord )
         if (/^0x[0-9a-fA-F]+$/g.test(hoveredWord)) {
             console.log(hoveredWord)
@@ -37,5 +35,6 @@ export class HoverProvider {
         console.log("Hover Null")
         return null
     }
+
 
 }

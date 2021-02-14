@@ -20,7 +20,12 @@ import {
     InitializeParams,
     DidChangeConfigurationNotification,
     TextDocumentSyncKind,
-    TextDocumentChangeEvent
+    TextDocumentChangeEvent,
+    DefinitionOptions,
+    DefinitionLink,
+    Range,
+    Location,
+    DefinitionParams
 } from 'vscode-languageserver/node';
 import {TextDocument} from 'vscode-languageserver-textdocument'
 import {CompletionItemProvider} from './completion-item-provider/completion-item-provider'
@@ -64,13 +69,13 @@ connection.onInitialize((params: InitializeParams) => {
             documentHighlightProvider: true,
             documentSymbolProvider: true,
             workspaceSymbolProvider: true,
-            codeActionProvider: {
-                codeActionKinds: [CodeActionKind.Refactor, CodeActionKind.Source, CodeActionKind.SourceOrganizeImports],
-                resolveProvider: true
-            },
-            codeLensProvider: {
-                resolveProvider: true
-            },
+            // codeActionProvider: {
+            //     codeActionKinds: [CodeActionKind.Refactor, CodeActionKind.Source, CodeActionKind.SourceOrganizeImports],
+            //     resolveProvider: true
+            // },
+            // codeLensProvider: {
+            //     resolveProvider: false
+            // },
             documentFormattingProvider: true,
             documentRangeFormattingProvider: true,
             // documentOnTypeFormattingProvider: {
@@ -236,6 +241,22 @@ connection.onHover((hoverParams: HoverParams): Hover => {
         console.error(err)
     }
     return hoverProvider.provideHover(document, hoverParams.position)
+})
+
+connection.onDefinition((defParams: DefinitionParams): Location[] => {
+    let uri = defParams.textDocument.uri
+    let languageId = path.extname(uri).slice(1).toLowerCase()
+	let document = null
+    try {
+        let text = (fs.readFileSync(URI.parse(uri).fsPath)).toString('utf8')
+        
+        // Very low resource usage for creating one document.
+        document = TextDocument.create(uri, languageId, 1, text)
+    }
+    catch (err) {
+        console.error(err)
+    }
+    return definitionProvider.provideDefinition(document, defParams.position)
 })
 
 // This handler provides the initial list of the completion items.

@@ -1,5 +1,6 @@
 import { IAliasMap, VariablePathDescription } from './interfaces';
-import {Location, Position, Range} from 'vscode-languageserver'
+import {Location, Position, Range} from 'vscode-languageserver/node'
+import { TextDocument } from 'vscode-languageserver-textdocument'
 import { URI } from 'vscode-uri'
 
 export function normalizeAliasTemplate (alias: string, template: string): string {
@@ -96,4 +97,29 @@ export function createLocation (definitionInfo: VariablePathDescription) {
 
 export function getLineRange (position: Position): Range{
     return Range.create(position.line, 0, position.line, Number.MAX_VALUE)
+}
+
+/**
+* Find the word located in the string with a numeric index.
+*
+* @return {String}
+*/
+export function getClosestWordRange(document: TextDocument, position: Position) {
+    let offset: number = document.offsetAt(position)
+    let str: string = document.getText()
+    const isSpace = (c: any) => /[\s,\(\)]/.exec(c);
+    let start = offset - 1;
+    let end = offset;
+
+    while (start >= 0 && !isSpace(str[start])) {
+        start -= 1;
+    }
+    start = Math.max(0, start + 1);
+
+    while (end < str.length && !isSpace(str[end])) {
+        end += 1;
+    }
+    end = Math.max(start, end);
+
+    return Range.create(document.positionAt(start), document.positionAt(end));
 }

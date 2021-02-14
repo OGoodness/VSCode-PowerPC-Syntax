@@ -9,12 +9,10 @@ import {
     CompletionList,
     Range
 } from 'vscode';
-import { TriggerCharacters } from '../constants';
 import { CompletionItemKind, CompletionTriggerKind } from 'vscode-languageclient';
 import { SoyDefinitionProvider } from '../definition-provider/soy-definition-provider';
 import { VariablePathMap } from '../interfaces';
 import * as data from '../data';
-import { getIncludes, getMatchingAlias, normalizeAliasTemplate } from '../template-utils';
 
 export class SoyCompletionItemProvider implements CompletionItemProvider {
     private soyDefinitionProvider: SoyDefinitionProvider;
