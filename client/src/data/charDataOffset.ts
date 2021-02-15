@@ -1,5 +1,3 @@
-import * as vscode from 'vscode';
-
 export interface CharacterDataOffset {
   effect: string;
   comments: string;

@@ -120,10 +120,12 @@
         ]
     },
     "scripts": {
-        "compile:client": "tsc -p ./client/tsconfig.json",
-        "compile:server": "tsc -p ./server/tsconfig.json",
+        "vscode:prepublish": "cd client && npm install && cd .. && npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
         "watch:client": "tsc -w -p ./client/tsconfig.json",
-        "watch:server": "tsc -w -p ./server/tsconfig.json"
+        "watch:server": "tsc -w -p ./server/tsconfig.json",
+        "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
     },
     "devDependencies": {
         "@types/mocha": "^5.2.7",

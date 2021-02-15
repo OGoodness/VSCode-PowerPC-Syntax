@@ -5,13 +5,12 @@ import patterns from './patterns';
 import {
     createConnection,
     TextDocuments,
-    TextDocument,
     Diagnostic,
     DiagnosticSeverity,
     ProposedFeatures,
     InitializeParams,
     DidChangeConfigurationNotification
-} from 'vscode-languageserver';
+} from 'vscode-languageserver/node';
 
 const connection = createConnection(ProposedFeatures.all);
 const documents: TextDocuments = new TextDocuments();

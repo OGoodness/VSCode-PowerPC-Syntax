@@ -3,7 +3,7 @@
 import * as path from 'path';
 import vscode = require('vscode');
 import { workspace, ExtensionContext, Progress, ProgressLocation, CancellationToken } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
 import { SoyDefinitionProvider } from './definition-provider/soy-definition-provider';
 import { SoyReferenceProvider } from './reference-provider/soy-reference-provider';
 import { SoyHoverProvider } from './hover-provider/soy-hover-provider';

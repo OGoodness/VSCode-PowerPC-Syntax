@@ -10,16 +10,11 @@
 		"url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax"
 	},
 	"engines": {
-		"vscode": "^1.25.0"
-	},
-	"scripts": {
-		"update-vscode": "vscode-install",
-		"postinstall": "vscode-install"
+		"vscode": "^1.53.0"
 	},
 	"dependencies": {
 		"fast-glob": "^2.2.7",
 		"linenumber": "^1.0.1",
-		"vscode": "^1.1.37",
-		"vscode-languageclient": "^4.4.2"
+		"@types/vscode": "^1.53.0"
 	}
 }
