@@ -1,6 +1,11 @@
 # Asm/PowerPC file support
 General file support for `.asm` and `.s` files. See section below for details.
 
+![from Slippi Source](https://i.imgur.com/UytQygr.png)  
+![from Slippi Source](https://i.imgur.com/Srvecws.gif)
+
+
+
 ## Functionality
 - Syntax highlight
 - Go to definition support

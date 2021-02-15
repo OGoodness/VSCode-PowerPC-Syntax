@@ -1,4 +1,7 @@
 # PowerPC Syntax - What's new?
+# [1.1.6] - 2/15/2021
+- Updated README to include showcase
+
 # [1.1.5] - 2/15/2021
 - Fixed broken definition support from last update. Everything should work now. 
 - Added more support for command definitions
