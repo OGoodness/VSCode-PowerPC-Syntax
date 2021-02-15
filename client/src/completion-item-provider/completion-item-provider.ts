@@ -11,16 +11,16 @@ import {
 } from 'vscode';
 import { TriggerCharacters } from '../constants';
 import { CompletionItemKind, CompletionTriggerKind } from 'vscode-languageclient';
-import { SoyDefinitionProvider } from '../definition-provider/soy-definition-provider';
+import { AsmDefinitionProvider } from '../definition-provider/definition-provider';
 import { VariablePathMap } from '../interfaces';
 import * as data from '../data';
 import { getIncludes, getMatchingAlias, normalizeAliasTemplate } from '../template-utils';
 
-export class SoyCompletionItemProvider implements CompletionItemProvider {
-    private soyDefinitionProvider: SoyDefinitionProvider;
+export class AsmCompletionItemProvider implements CompletionItemProvider {
+    private asmDefinitionProvider: AsmDefinitionProvider;
 
-    constructor (soyDefinitionProvider: SoyDefinitionProvider) {
-        this.soyDefinitionProvider = soyDefinitionProvider;
+    constructor (asmDefinitionProvider: AsmDefinitionProvider) {
+        this.asmDefinitionProvider = asmDefinitionProvider;
     }
 
     public provideCompletionItems (document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): ProviderResult<CompletionList> {
@@ -30,11 +30,8 @@ export class SoyCompletionItemProvider implements CompletionItemProvider {
             }
 
             const wordRange: Range = document.getWordRangeAtPosition(position, /(del)?call\s+[\w\d.]+/);
-
             if (context.triggerKind === CompletionTriggerKind.Invoked) {
-                console.log("Trigger Kind")
-                // if (context.triggerCharacter === TriggerCharacters.Dot) {
-                if (true) {
+                if (context.triggerCharacter === TriggerCharacters.Dot) {
                     const documentText: string = document.getText();
                     // const templateCall: string = document.getText(wordRange);
                     // const templateNameStart: string = templateCall.match(/(?:del)?call\s+([\w\d.]+)/)[1];
@@ -58,22 +55,28 @@ export class SoyCompletionItemProvider implements CompletionItemProvider {
 
                     resolve(new CompletionList(
                         completionItems.map(
-                            templateName => this.buildCompletionItem(templateName, templateToSearchFor)
+                            itemName => this.buildCompletionItem(itemName, templateToSearchFor)
                         ),
                         false
                     ));
                 }
-                // else if (context.triggerCharacter === TriggerCharacters.LeftBrace) {
-                //     // Todo - provide snippets
-                // }
+            }else{
+                let templateToSearchFor: string;
+                const completionItems: string[] = this.getCompletionItemsData(templateToSearchFor);
+                resolve(new CompletionList(
+                    completionItems.map(
+                        itemName => this.buildCompletionItem(itemName, templateToSearchFor)
+                    ),
+                    false
+                ));
             }
 
             resolve(null);
         });
     }
 
-    private buildCompletionItem (templateName: string, omittablePrefix: string): CompletionItem {
-        const completion: string = templateName.replace(new RegExp(`^${omittablePrefix}`), '');
+    private buildCompletionItem (itemName: string, omittablePrefix: string): CompletionItem {
+        const completion: string = itemName.replace(new RegExp(`^${omittablePrefix}`), '');
 
         return {
             label: completion,
@@ -82,13 +85,13 @@ export class SoyCompletionItemProvider implements CompletionItemProvider {
         } as CompletionItem;
     }
 
-    private getCompletionItemsData (templateNameStart: string): string[] {
-        const definitionList: VariablePathMap = this.soyDefinitionProvider.getDefinitionList();
+    private getCompletionItemsData (itemNameStart: string): string[] {
+        const definitionList: VariablePathMap = this.asmDefinitionProvider.getDefinitionList();
         const asmCommands = Object.keys(data.getAllCommands())
-        if (!definitionList) {
+        if (!definitionList && !asmCommands) {
             return [];
         }
 
-        return asmCommands.concat(Object.keys(definitionList)).filter(templateName => templateName.startsWith(templateNameStart));
+        return asmCommands.concat(Object.keys(definitionList)).filter(itemName => itemName.startsWith(itemNameStart));
     }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-import { ISoyConfigSettings, IErrorItem } from './interfaces';
+import { IAsmConfigSettings, IErrorItem } from './interfaces';
 import patterns from './patterns';
 import {
     createConnection,
@@ -8,12 +8,14 @@ import {
     Diagnostic,
     DiagnosticSeverity,
     ProposedFeatures,
+    TextDocumentSyncKind,
     InitializeParams,
     DidChangeConfigurationNotification
 } from 'vscode-languageserver/node';
+import {TextDocument} from 'vscode-languageserver-textdocument'
 
 const connection = createConnection(ProposedFeatures.all);
-const documents: TextDocuments = new TextDocuments();
+const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument)
 let hasConfigurationCapability: boolean = false;
 let hasWorkspaceFolderCapability: boolean = false;
 
@@ -29,7 +31,10 @@ connection.onInitialize((params: InitializeParams) => {
 
     return {
         capabilities: {
-            textDocumentSync: documents.syncKind,
+            textDocumentSync: {
+				openClose: true,
+				change: TextDocumentSyncKind.Full
+            },
             // either this is true and use the onDefinition
             // or just have the subscription in the extension
             definitionProvider: false
@@ -52,15 +57,15 @@ connection.onInitialized(() => {
     }
 });
 
-const defaultSettings: ISoyConfigSettings = {
+const defaultSettings: IAsmConfigSettings = {
     ignoreTodo: false,
     ignoreBreakingChange: false,
     ignoreErrors: false,
     disallowAllowemptydefault: false
 };
-let globalSettings: ISoyConfigSettings = defaultSettings;
+let globalSettings: IAsmConfigSettings = defaultSettings;
 
-const documentSettings: Map<string, Thenable<ISoyConfigSettings>> = new Map();
+const documentSettings: Map<string, Thenable<IAsmConfigSettings>> = new Map();
 
 connection.onDidChangeConfiguration(change => {
     if (hasConfigurationCapability) {
@@ -68,13 +73,13 @@ connection.onDidChangeConfiguration(change => {
     } else {
         globalSettings = (
             (change.settings.asmLanguageServer || defaultSettings)
-        ) as ISoyConfigSettings;
+        ) as IAsmConfigSettings;
     }
 
-    documents.all().forEach(validateSoyDocument);
+    documents.all().forEach(validateAsmDocument);
 });
 
-function getDocumentSettings (resource: string): Thenable<ISoyConfigSettings> {
+function getDocumentSettings (resource: string): Thenable<IAsmConfigSettings> {
     if (!hasConfigurationCapability) {
         return Promise.resolve(globalSettings);
     }
@@ -94,7 +99,7 @@ documents.onDidClose(e => {
 });
 
 documents.onDidChangeContent(change => {
-    validateSoyDocument(change.document);
+    validateAsmDocument(change.document);
 });
 
 documents.onDidClose(change => {
@@ -117,7 +122,7 @@ function validateWithPattern (errorItem: IErrorItem, text: string, textDocument:
                 end: textDocument.positionAt(startPosition + m[1].length)
             },
             message: `${m[1]}: ${message}.`,
-            source: 'soy-ext'
+            source: 'asm-ext'
         });
     }
 
@@ -134,7 +139,7 @@ function validatePatterns (errorItems: any[], text: string, textDocument: TextDo
     return diagnosticResults;
 }
 
-async function validateSoyDocument (textDocument: TextDocument): Promise<void> {
+async function validateAsmDocument (textDocument: TextDocument): Promise<void> {
     const settings = await getDocumentSettings(textDocument.uri);
     const text = textDocument.getText();
     const diagnostics: Diagnostic[] = [];

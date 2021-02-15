@@ -1,5 +1,4 @@
 import linenumber = require('linenumber');
-// const regexDefinitions = require('.');
 import fs = require('fs');
 import { VariablePathMap, VariablePathDescription } from '../interfaces';
 

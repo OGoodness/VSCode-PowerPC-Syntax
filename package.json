@@ -1,10 +1,10 @@
 {
     "name": "powerpc-syntax",
     "displayName": "PowerPC Syntax",
-    "description": "Full syntax support, Go To Definiton, Find References, snippets and more (Some features pending)",
+    "description": "Full syntax support, Go To Definition, Find References, snippets and more (Some features pending)",
     "author": "Noah Fields",
     "license": "MIT",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "repository": {
         "type": "git",
         "url": "https://github.com/OGoodness/VSCode-PowerPC-Syntax"
@@ -28,9 +28,9 @@
     },
     "activationEvents": [
         "onLanguage:asm",
-        "onCommand:soyfilesupport.reparse.workspace",
-        "onCommand:soyfilesupport.showExtensionChanges",
-        "onCommand:soyfilesupport.showReadme"
+        "onCommand:asmfilesupport.reparse.workspace",
+        "onCommand:asmfilesupport.showExtensionChanges",
+        "onCommand:asmfilesupport.showReadme"
     ],
     "main": "./client/out/extension",
     "icon": "images/icon.png",
@@ -59,7 +59,7 @@
         ],
         "configuration": {
             "type": "object",
-            "title": "Soy file support",
+            "title": "Asm file support",
             "properties": {
                 "asmLanguageServer.ignoreTodo": {
                     "type": "boolean",
@@ -94,7 +94,7 @@
         "snippets": [
             {
                 "language": "asm",
-                "path": "./snippets/soy-snippets.json"
+                "path": "./snippets/asm-snippets.json"
             }
         ],
         "grammars": [
@@ -106,23 +106,23 @@
         ],
         "commands": [
             {
-                "command": "soyfilesupport.reparse.workspace",
-                "title": "Soy File Support: Reparse workspace"
+                "command": "asmfilesupport.reparse.workspace",
+                "title": "Asm File Support: Reparse workspace"
             },
             {
-                "command": "soyfilesupport.showExtensionChanges",
-                "title": "Soy File Support: Show extension changes"
+                "command": "asmfilesupport.showExtensionChanges",
+                "title": "Asm File Support: Show extension changes"
             },
             {
-                "command": "soyfilesupport.about",
-                "title": "Soy File Support: About"
+                "command": "asmfilesupport.about",
+                "title": "Asm File Support: About"
             }
         ]
     },
     "scripts": {
         "vscode:prepublish": "cd client && npm install && cd .. && npm run compile",
-		"compile": "tsc -b",
-		"watch": "tsc -b -w",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
         "watch:client": "tsc -w -p ./client/tsconfig.json",
         "watch:server": "tsc -w -p ./server/tsconfig.json",
         "postinstall": "cd client && npm install && cd ../server && npm install && cd .."

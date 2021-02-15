@@ -3,7 +3,7 @@ export interface IErrorItem {
     message: string;
 }
 
-export interface ISoyConfigSettings {
+export interface IAsmConfigSettings {
     ignoreTodo: boolean;
     ignoreBreakingChange: boolean;
     ignoreErrors: boolean;

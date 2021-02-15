@@ -1,7 +1,7 @@
 import vscode = require('vscode');
 import * as data from "../data";
 
-export class SoyHoverProvider implements vscode.HoverProvider {
+export class AsmHoverProvider implements vscode.HoverProvider {
 
     constructor () {
     }
