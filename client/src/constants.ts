@@ -1,12 +1,12 @@
 export enum GlobalState {
-    CurrentVersion = 'soyFileSupportVersion'
+    CurrentVersion = 'asmFileSupportVersion'
 }
 
 export enum Commands {
-    // Soy File Support commands
-    ReparseWorkSpace     = 'soyfilesupport.reparse.workspace',
-    ShowExtensionChanges = 'soyfilesupport.showExtensionChanges',
-    About                = 'soyfilesupport.about',
+    // Asm File Support commands
+    ReparseWorkSpace     = 'asmfilesupport.reparse.workspace',
+    ShowExtensionChanges = 'asmfilesupport.showExtensionChanges',
+    About                = 'asmfilesupport.about',
 
     // VS Code commands
     ShowMarkDownPreview  = 'markdown.showPreview'
@@ -18,6 +18,7 @@ export enum ExtensionData {
 
 export enum TriggerCharacters {
     Dot = '.',
+    Backslash = '\\',
 }
 
 export enum UpdateNotificationItem {

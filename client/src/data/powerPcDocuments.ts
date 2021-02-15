@@ -1,3 +1,6 @@
+//USEFUL SOURCES: 
+// https://developer.arm.com/documentation/dui0802/a/A64-General-Instructions/A64-general-instructions-in-alphabetical-order?lang=en
+// https://www.ibm.com/support/knowledgecenter/ssw_aix_71/assembler/idalangref_ins_set.html
 export interface Command {
   mnemonics: string[];
   description: string;
@@ -9,6 +12,30 @@ export const UnknownCommand: Command = {
 };
 
 export const Commands: { [command: string]: Command } = {
+	".set":{
+		"mnemonics":[],
+		"description":""
+	},
+	".macro":{
+		"mnemonics":[],
+		"description":""
+	},
+	".endm":{
+		"mnemonics":[],
+		"description":""
+	},
+	".align":{
+		"mnemonics":[],
+		"description":""
+	},
+	".string":{
+		"mnemonics":[],
+		"description":""
+	},
+	".include":{
+		"mnemonics":[],
+		"description":""
+	},
 	"abs":{
 	   "mnemonics":[
 		  "abs",
@@ -146,6 +173,24 @@ export const Commands: { [command: string]: Command } = {
 	   ],
 	   "description":"Conditionally branches to an address contained in the Link Register."
 	},
+	"beq":{
+	   "mnemonics":[
+		  "beq"
+	   ],
+	   "description":"Branch if equal (EQ of CR0 set)"
+	},
+	"bne":{
+	   "mnemonics":[
+		  "bne"
+	   ],
+	   "description":"Branch if not equal (EQ of CR0 not set)"
+	},
+	"blr":{
+	   "mnemonics":[
+		  "blr"
+	   ],
+	   "description":"Branch with link to register, calls a subroutine at an address in a register, setting register X30 to PC + 4."
+	},
 	"clcs":{
 	   "mnemonics":[
 		  "clcs"
@@ -187,6 +232,12 @@ export const Commands: { [command: string]: Command } = {
 		  "cmpli"
 	   ],
 	   "description":"Compares the contents of a general-purpose register and a given value logically."
+	},
+	"cmpwi":{
+	   "mnemonics":[
+		  "cmpwi"
+	   ],
+	   "description":"Compares the contents of a register/value as a word (Compare Word Immediate)."
 	},
 	"cntlzd":{
 	   "mnemonics":[
@@ -772,6 +823,12 @@ export const Commands: { [command: string]: Command } = {
 	   ],
 	   "description":"Loads a halfword of data from a specified location in memory into a general-purpose register and sets the remaining 16 bits of the general-purpose register to 0."
 	},
+	"li":{
+	   "mnemonics":[
+		  "li"
+	   ],
+	   "description":"Loads an immediate value into a register."
+	},
 	"lmw":{
 	   "mnemonics":[
 		  "lmw"
@@ -939,6 +996,12 @@ export const Commands: { [command: string]: Command } = {
 		  "mfsrin"
 	   ],
 	   "description":"Copies the contents of the specified segment register into a general-purpose register."
+	},
+	"mr":{
+	   "mnemonics":[
+		  "mr"
+	   ],
+	   "description":"Multiplies two signed 32-bit integers."
 	},
 	"mtcrf":{
 	   "mnemonics":[
@@ -1762,7 +1825,7 @@ export const Commands: { [command: string]: Command } = {
  };
 
 export const getCommand = (value: string) =>{
-  return Commands[value] || UnknownCommand
+  return Commands[value] || Commands[value.replace(/[^a-zA-Z0-9]/g, "")] || UnknownCommand
 }
 
 export const getAllCommands = () =>{
@@ -1770,7 +1833,6 @@ export const getAllCommands = () =>{
 }
 
 export const setHover = (value: string, formattedText: any) => {
-  console.log(value)
   let item =  getCommand(value);
   if(item !== UnknownCommand){
     formattedText.appendMarkdown(`**ASM Command**  \n`)

@@ -1,4 +1,14 @@
 # PowerPC Syntax - What's new?
+# [1.1.5] - 2/15/2021
+- Fixed broken definition support from last update. Everything should work now. 
+- Added more support for command definitions
+- Added the ability to find references (Not context specific)
+- Update to VSCode client and server versions
+
+# [1.1.4] - 2/10/2021
+- Update to `On Hover` information for command
+- Unintentional broken definition support
+
 # [1.1.3] - 2/8/2021
 - ReEnabled  `ctrl+click` on files, fixed issue where it would automatically go to file when you hovered over it.
 - Updated to include auto completion when writing variable or command names

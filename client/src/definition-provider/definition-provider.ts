@@ -3,7 +3,7 @@ import { VariablePathMap, VariablePathDescription } from '../interfaces';
 import { parseFiles, parseFile } from './parse';
 import { createLocation, normalizeAliasTemplate, getIncludes, getMatchingVariable } from '../template-utils';
 
-export class SoyDefinitionProvider implements vscode.DefinitionProvider {
+export class AsmDefinitionProvider implements vscode.DefinitionProvider {
     private variablePathMap: VariablePathMap;
 
     public parseWorkspaceFolders (wsFolders: string[][]): void {

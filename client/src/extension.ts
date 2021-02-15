@@ -4,20 +4,20 @@ import * as path from 'path';
 import vscode = require('vscode');
 import { workspace, ExtensionContext, Progress, ProgressLocation, CancellationToken } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
-import { SoyDefinitionProvider } from './definition-provider/soy-definition-provider';
-import { SoyReferenceProvider } from './reference-provider/soy-reference-provider';
-import { SoyHoverProvider } from './hover-provider/soy-hover-provider';
-import { SoyDocumentSymbolProvider } from './document-symbol-provider/soy-document-symbol-provider';
-import { SoyCompletionItemProvider } from './completion-item-provider/soy-completion-item-provider';
+import { AsmDefinitionProvider } from './definition-provider/definition-provider';
+import { AsmReferenceProvider } from './reference-provider/reference-provider';
+import { AsmHoverProvider } from './hover-provider/hover-provider';
+import { AsmDocumentSymbolProvider } from './document-symbol-provider/document-symbol-provider';
+import { AsmCompletionItemProvider } from './completion-item-provider/completion-item-provider';
 import { getAsmFiles, getAsmFile, getChangeLogPath, getReadmePath } from './files';
 import { VersionManager } from './VersionManager';
 import { Commands, TriggerCharacters, UpdateNotificationItem } from './constants';
 
-const asmDefinitionProvider = new SoyDefinitionProvider();
-const asmReferenceProvider = new SoyReferenceProvider();
-const asmHoverProvider = new SoyHoverProvider();
-const asmDocumentSymbolProvider = new SoyDocumentSymbolProvider();
-const asmCompletionItemProvider = new SoyCompletionItemProvider(asmDefinitionProvider);
+const asmDefinitionProvider = new AsmDefinitionProvider();
+const asmReferenceProvider = new AsmReferenceProvider();
+const asmHoverProvider = new AsmHoverProvider();
+const asmDocumentSymbolProvider = new AsmDocumentSymbolProvider();
+const asmCompletionItemProvider = new AsmCompletionItemProvider(asmDefinitionProvider);
 let client: LanguageClient;
 
 const asmDocFilter: vscode.DocumentFilter = {
@@ -60,7 +60,7 @@ function registerProviders (context: ExtensionContext): void {
     context.subscriptions.push(vscode.languages.registerHoverProvider(asmDocFilter, asmHoverProvider));
     context.subscriptions.push(vscode.languages.registerDocumentSymbolProvider(asmDocFilter, asmDocumentSymbolProvider));
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(
-        asmDocFilter, asmCompletionItemProvider, TriggerCharacters.Dot, TriggerCharacters.Dot
+        asmDocFilter, asmCompletionItemProvider, TriggerCharacters.Dot, TriggerCharacters.Backslash
     ));
 }
 

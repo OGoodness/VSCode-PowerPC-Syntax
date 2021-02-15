@@ -1,6 +1,6 @@
 import { DocumentSymbolProvider, TextDocument, ProviderResult, SymbolInformation, SymbolKind, Location } from 'vscode';
 
-export class SoyDocumentSymbolProvider implements DocumentSymbolProvider {
+export class AsmDocumentSymbolProvider implements DocumentSymbolProvider {
 
     public provideDocumentSymbols (document: TextDocument): ProviderResult<SymbolInformation[]> {
         const matches: RegExpExecArray[] = this.getSymbolData(document.getText());
@@ -21,7 +21,7 @@ export class SoyDocumentSymbolProvider implements DocumentSymbolProvider {
     }
 
     private getSymbolData (documentText: string): RegExpExecArray[] {
-        const pattern: RegExp = /\{((?:del)?(?:template|call))\s+([\w\d.]+)/gim;
+        const pattern: RegExp = /\.(?:macro|set))\s+([\w\d.]+)/gim;
         const matches: RegExpExecArray[] = [];
         let m: RegExpExecArray;
 
@@ -34,10 +34,8 @@ export class SoyDocumentSymbolProvider implements DocumentSymbolProvider {
 
     private getTokenSymbolKind (token: string): SymbolKind {
         const symbolTokenMap = {
-            template:    SymbolKind.Class,
-            deltemplate: SymbolKind.Class,
-            call:        SymbolKind.Function,
-            delcall:     SymbolKind.Function
+            ".macro":   SymbolKind.Function,
+            ".set":     SymbolKind.Variable
         };
 
         return symbolTokenMap[token];

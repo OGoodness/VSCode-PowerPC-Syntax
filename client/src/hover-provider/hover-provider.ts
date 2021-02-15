@@ -1,7 +1,7 @@
 import vscode = require('vscode');
 import * as data from "../data";
 
-export class SoyHoverProvider implements vscode.HoverProvider {
+export class AsmHoverProvider implements vscode.HoverProvider {
 
     constructor () {
     }
@@ -26,18 +26,5 @@ export class SoyHoverProvider implements vscode.HoverProvider {
         // const referenceHoverItem: string = this.createSentence(references && references.length, 'reference');
         //  new vscode.Hover([definitionHoverItem, referenceHoverItem]);
         return null
-    }
-
-    private createSentence (numberOfItems: number, itemName: string): string {
-        //HERE Generate From language info
-        const plural = `${itemName}s`;
-
-        if (!numberOfItems) {
-            return `No ${plural} found.`;
-        } else if (numberOfItems === 1) {
-            return `1 ${itemName} is available.`;
-        } else {
-            return `${numberOfItems} ${plural} are available.`;
-        }
     }
 }

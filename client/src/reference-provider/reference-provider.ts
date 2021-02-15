@@ -1,9 +1,9 @@
-import { VariablePathDescription, VariablePathMap } from './../interfaces';
+import { VariablePathDescription, VariablePathMap } from '../interfaces';
 import vscode = require('vscode');
 import { parseFilesForReferences, parseFile } from './parse';
-import { getIncludes, getMatchingAlias, createLocation, normalizeAliasTemplate } from '../template-utils';
+import { getMatchingVariable, createLocation, normalizeAliasTemplate } from '../template-utils';
 
-export class SoyReferenceProvider implements vscode.ReferenceProvider {
+export class AsmReferenceProvider implements vscode.ReferenceProvider {
     private callMap: VariablePathMap;
 
     public parseWorkspaceFolders (wsFolders: string[][]): void {
@@ -18,28 +18,33 @@ export class SoyReferenceProvider implements vscode.ReferenceProvider {
     public provideReferences (document: vscode.TextDocument, position: vscode.Position): Thenable<vscode.Location[]> {
         const documentText: string = document.getText();
         const wordRange: vscode.Range = document.getWordRangeAtPosition(position, /[\w\d.]+/);
-        const templateToSearchFor: string = document.getText(wordRange);
+        const variableToSearchFor: string = document.getText(wordRange);
+        console.log(variableToSearchFor)
         let records: VariablePathDescription[];
 
         return new Promise<vscode.Location[]>(resolve => {
-            if (!templateToSearchFor || !this.callMap) {
+            if (!variableToSearchFor || !this.callMap) {
+                console.log("resolve null")
                 resolve(null);
             }
 
-            if (templateToSearchFor.startsWith('.')) {
-                const namespace: string = getIncludes(documentText);
-                records = this.callMap[`${namespace}${templateToSearchFor}`];
+            if (variableToSearchFor.startsWith('.')) {
+                // const namespace: string = getIncludes(documentText);
+                records = this.callMap[`${variableToSearchFor}`];
             } else {
-                const alias: string = getMatchingAlias(templateToSearchFor, documentText);
+                const alias: string = getMatchingVariable(variableToSearchFor, documentText);
 
                 if (alias) {
-                    const fullTemplatePath = normalizeAliasTemplate(alias, templateToSearchFor);
+                    console.log("alias exists")
+                    const fullTemplatePath = normalizeAliasTemplate(alias, variableToSearchFor);
                     records = this.callMap[fullTemplatePath];
                 } else {
-                    records = this.callMap[templateToSearchFor];
+                    console.log("alias doesn't exist")
+                    records = this.callMap[variableToSearchFor];
                 }
             }
-
+            console.log(records)
+            console.log(records.map(info => createLocation(info)))
             resolve(records && records.map(info => createLocation(info)));
         });
     }
