@@ -33,6 +33,27 @@ General file support for `.asm` and `.s` files. See section below for details.
 All snippets start with the character `_` to be able to quickly search for them.
 
 
+### Contributing:
+Clone and build the repo:  
+```bash
+git clone https://github.com/OGoodness/VSCode-PowerPC-Syntax.git
+cd VSCode-PowerPC-Syntax
+# code .
+
+npm install
+npm run watch
+```  
+Whenever you make changes to the application you need to run the `watch` command, that way TypeScript can actively look for changes.  
+From there do the following: 
+- Open VS Code on this folder.
+- Run the above command.
+- Switch to the Debug viewlet.
+- Select `Launch Client` from the drop down.
+- Run the launch config.
+- If you want to debug the server as well use the launch configuration `Attach to Server`
+
+Make your changes and open up a PR! :D
+
 **Snippets**:
 <!-- - **sfor** - `foreach` block
 - **sforin** - `for .. in` block
