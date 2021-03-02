@@ -8,9 +8,7 @@ export class AsmHoverProvider implements vscode.HoverProvider {
 
     public provideHover (document: vscode.TextDocument, position: vscode.Position): vscode.Hover {
         const hoveredWord = document.getText(document.getWordRangeAtPosition(position, /[\w\d.]+/));
-        console.log('HOVER: ' + hoveredWord )
         if (/^0x[0-9a-fA-F]+$/g.test(hoveredWord)) {
-            console.log(hoveredWord)
             let numericValue = parseInt(hoveredWord, 16);
             let formattedText = new vscode.MarkdownString(`**ID:** ${hoveredWord} = ${numericValue}  \n`);
             //TODO: Fix these to be more like getCOmmand

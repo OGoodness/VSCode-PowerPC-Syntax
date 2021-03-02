@@ -54,7 +54,6 @@ export function parseFile (file: string, allVariablePathMaps: VariablePathMap) {
     let n: RegExpExecArray;
 
     while (n = variablePattern.exec(content)) {
-        console.log(n)
         const lineNr = linenumber(content, n[0]);
 
         const alias: string = getMatchingVariable(n[0], content);

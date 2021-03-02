@@ -8,7 +8,6 @@ export function normalizeAliasTemplate (alias: string, template: string): string
 }
 
 export function getNamespace (documentText: string): string {
-    console.log("Get Namespace")
     const namespacePattern: RegExp = /\{namespace\s*([\w\d.]+)/;
     const namespaceMatch = namespacePattern.exec(documentText);
 

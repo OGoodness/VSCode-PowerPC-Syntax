@@ -19,12 +19,10 @@ export class AsmReferenceProvider implements vscode.ReferenceProvider {
         const documentText: string = document.getText();
         const wordRange: vscode.Range = document.getWordRangeAtPosition(position, /[\w\d.]+/);
         const variableToSearchFor: string = document.getText(wordRange);
-        console.log(variableToSearchFor)
         let records: VariablePathDescription[];
 
         return new Promise<vscode.Location[]>(resolve => {
             if (!variableToSearchFor || !this.callMap) {
-                console.log("resolve null")
                 resolve(null);
             }
 
@@ -35,16 +33,12 @@ export class AsmReferenceProvider implements vscode.ReferenceProvider {
                 const alias: string = getMatchingVariable(variableToSearchFor, documentText);
 
                 if (alias) {
-                    console.log("alias exists")
                     const fullTemplatePath = normalizeAliasTemplate(alias, variableToSearchFor);
                     records = this.callMap[fullTemplatePath];
                 } else {
-                    console.log("alias doesn't exist")
                     records = this.callMap[variableToSearchFor];
                 }
             }
-            console.log(records)
-            console.log(records.map(info => createLocation(info)))
             resolve(records && records.map(info => createLocation(info)));
         });
     }

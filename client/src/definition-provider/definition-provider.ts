@@ -28,7 +28,6 @@ export class AsmDefinitionProvider implements vscode.DefinitionProvider {
 
         return await this.definitionLocation(document, position)
             .then(definitionInfo => {
-                console.log(definitionInfo)
                 if (definitionInfo) {
                     return definitionInfo.map(info => createLocation(info));
                 }
@@ -75,7 +74,6 @@ export class AsmDefinitionProvider implements vscode.DefinitionProvider {
         let variableData: VariablePathDescription[];
 
         if (variableToSearchFor.startsWith('.')) {
-            console.log("This is a system variable/function")
             const namespace: string = getIncludes(documentText);
             //TODO: Figure this out
 
@@ -91,7 +89,6 @@ export class AsmDefinitionProvider implements vscode.DefinitionProvider {
             }
         }
         
-        console.log("Variable Data: " + JSON.stringify(variableData))
         return variableData;
     }
 }
