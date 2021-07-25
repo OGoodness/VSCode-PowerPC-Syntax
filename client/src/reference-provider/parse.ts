@@ -60,8 +60,6 @@ export function parseFile (file: string, allVariablePathMaps: VariablePathMap) {
     let n: RegExpExecArray;
     console.log("Parsing File...", file);
 
-    var tt = "c:/Users/rober/Documents/Dev/Github/BeyondMeleeDev/System/asm/m-ex/Main.s"
-    var shouldLog = false ;//file == tt;
     var alreadyProcessedTemplates = {};
     while (n = variablePattern.exec(content)) {
         var templateName = n[0];
@@ -73,16 +71,14 @@ export function parseFile (file: string, allVariablePathMaps: VariablePathMap) {
         
             if(n[0] != "..") { // Searching for .. Brings back more than 200k results on some files
                 const lineNr = linenumber(content, templateName);
-                if(shouldLog) console.log("Before: ", lineNr);
 
                 const alias: string = getMatchingVariable(templateName, content);
                 if (alias) {
                     insertRefs(refTemplateName, file, lineNr, allVariablePathMaps);
-                    if(shouldLog) console.log("Alias: ", alias);
                 }
 
                 insertRefs(refTemplateName, file, lineNr, allVariablePathMaps);
-                if(shouldLog) console.log("After: ", alias, n, allVariablePathMaps);
+        
             }
             alreadyProcessedTemplates[templateName] = true; // linenumber returns all possible paths where n[0] is being used so just don't process it again
         } catch(e){
