@@ -2,7 +2,6 @@ import linenumber = require('linenumber');
 import fs = require('fs');
 import { getIncludes, getMatchingVariable, normalizeAliasTemplate } from '../template-utils';
 import { VariablePathDescription, VariablePathMap } from '../interfaces';
-import { nextTick } from 'node:process';
 
 function escapeRegExp (unescapedString: string) {
     return unescapedString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
