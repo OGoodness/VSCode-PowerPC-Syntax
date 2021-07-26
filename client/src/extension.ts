@@ -94,8 +94,11 @@ function initializeProviders (): void {
 
             getAsmFiles()
                 .then(wsFolders => {
+                    console.log("Resolving Definitions...");
                     asmDefinitionProvider.parseWorkspaceFolders(wsFolders);
+                    console.log("Resolving References...");
                     asmReferenceProvider.parseWorkspaceFolders(wsFolders);
+                    console.log("Project Scan Complete");
 
                     resolve(1);
                 });
