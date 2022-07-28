@@ -1,4 +1,7 @@
 # PowerPC Syntax - What's new?
+# [1.1.9] - 7/28/2922
+- Fixed bug preventing codebase analysis from running
+
 # [1.1.6] - 2/15/2021
 - Updated README to include showcase
 
