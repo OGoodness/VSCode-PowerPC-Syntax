@@ -21,7 +21,7 @@ export class AsmDocumentSymbolProvider implements DocumentSymbolProvider {
     }
 
     private getSymbolData (documentText: string): RegExpExecArray[] {
-        const pattern: RegExp = /\.(?:macro|set))\s+([\w\d.]+)/gim;
+        const pattern: RegExp = /\.(?:macro|set)\s+([\w\d.]+)/gim;
         const matches: RegExpExecArray[] = [];
         let m: RegExpExecArray;
 
